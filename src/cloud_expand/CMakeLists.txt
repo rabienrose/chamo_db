@@ -5,11 +5,30 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -ggdb")
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../../devel/include)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  message_generation
+  rosbag
 )
+IF(DEFINED ENV{DEV_BUILD})
+  ADD_DEFINITIONS(-DDEV_BUILD) 
+ENDIF()
+
+add_message_files(DIRECTORY msg
+FILES  
+connection.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  sensor_msgs
+)
+
+catkin_package(CATKIN_DEPENDS message_runtime)
 
 find_package(OpenCV REQUIRED)
 message(STATUS ${catkin_INCLUDE_DIRS})
