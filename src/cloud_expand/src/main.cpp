@@ -18,7 +18,7 @@ class Frame{
 public:
     int frame_id;
     std::string bag_name;
-    std::vector<cv::Mat> dess;
+    cv::Mat descs;
     std::vector<cv::KeyPoint> kps;
 };
 
@@ -45,19 +45,20 @@ public:
         frame.bag_name = bag_name;
         frame.frame_id = frame_id;
         cv::Mat debug_img= img.clone();
+        frame.descs = descs;
         for (int i=0; i<(int)kps.size();i++){
             frame.kps.push_back(kps[i]);
-            frame.descs.push_back(descs.row(i));
             //cv::circle(debug_img, kps[i].pt, 1, cv::Scalar(255,0,0,255), 2);
         }
         
+        matchTwoFrame();
         
         //cv::imshow("chamo", debug_img);
         //cv::waitKey(-1);
         
     }
 private:
-    void matchTwoFrame(cv::Mat descriptors1, cv::Mat descriptors2, std::vector<cv::DMatch> matches){
+    void matchTwoFrame(cv::Mat descriptors1, cv::Mat descriptors2, std::vector<cv::KeyPoint>& keypoints1, std::vector<cv::KeyPoint>& keypoints2, std::vector<cv::DMatch> out_matches){
         cv::BFMatcher matcher;
         std::vector<cv::DMatch> matches;
         matcher.match(descriptors1, descriptors2, matches);
@@ -82,15 +83,13 @@ private:
             points2[i] =keypoints2[kpInd2].pt;
         }
         cv::Mat inliers;
-        findFundamentalMat(points1, points2, cv::FM_RANSAC, 1., 0.99, inliers);
-        std::vector<cv::DMatch> out_matches;
+        cv::findFundamentalMat(points1, points2, cv::FM_RANSAC, 1., 0.99, inliers);
         for( int j = 0; j < inliers.rows; j++ )
         {
             if(inliers.at<unsigned char>(j)==1){
                 out_matches.push_back(good_matches[j]);
             }
         }
-        return out_matches;
     }
     
     std::string bag_name;
@@ -101,13 +100,14 @@ int main(int argc, char **argv){
     //float fx,fy,cx, cy, k1, k2, k3, p1, p2;
     ros::init(argc, argv, "cloud_expand");
     ros::NodeHandle nn;
-    std::string bag_addr="/media/psf/Home/Documents/data/bag4chamodb/2018-03-20-23-43-14.bag";
+    std::string bag_addr="/media/psf/Home/Documents/data/bag4chamodb";
+    std::string bag_name="2018-03-20-23-43-14"
     rosbag::Bag bag;
     bag.open(bag_addr,rosbag::bagmode::Read);
     rosbag::Bag bag_out;
-    bag_out.open("./output/chamo.bag", rosbag::bagmode::Write);
+    bag_out.open(bag_addr+"/"+bag_name+".bag", rosbag::bagmode::Write);
     SystemFront mySys;
-    mySys.init();
+    mySys.init(bag_name);
     std::vector<std::string> topics;
     topics.push_back("img_chamo");
     rosbag::View view(bag, rosbag::TopicQuery(topics));
@@ -121,7 +121,7 @@ int main(int argc, char **argv){
             cv::Mat temp_img;
             temp_img = cv::imdecode(simg->jpg, CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR);
             std::vector<Connection> outConn;
-            mySys.processData(temp_img, outConn);
+            mySys.processData(img_count, temp_img, outConn);
             cloud_expand::connection conn_msg;
             for (int i=0;i<(int)outConn.size();i++){
                 conn_msg.frame_id1.push_back(outConn[i].frame_id1);
