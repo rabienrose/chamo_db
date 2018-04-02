@@ -12,15 +12,9 @@
 #include <memory>
 #include <save_bag/img_chamo.h>
 #include <cloud_expand/connection.h>
-
-
-class Frame{
-public:
-    int frame_id;
-    std::string bag_name;
-    cv::Mat descs;
-    std::vector<cv::KeyPoint> kps;
-};
+#include <Initializer.h>
+#include <Frame.h>
+#include <Initializer.h>
 
 class Connection{
 public:
@@ -30,84 +24,119 @@ public:
     int kp_id2;
 };
 
+
 class SystemFront{
 public:
-    bool init(std::string bag_name_){
+    bool init(std::string bag_name_, std::string config_file){
         bag_name=bag_name_;
+        loadCamConif(config_file);
+        mpExtractor = new CHAMO_DB::ORBextractor(nFeatures,fScaleFactor,level,fast_thres, min_fast_thres);
     }
-    bool processData(int frame_id, cv::Mat img, std::vector<Connection>& outConn){
+    bool processData(cv::Mat img, double timeStamp, std::vector<Connection>& outConn){
         cv::Ptr<cv::ORB> extractor=cv::ORB::create();
         std::vector<cv::KeyPoint> kps;
         cv::Mat mask;
         cv::Mat descs;
-        extractor->detectAndCompute(img, mask, kps, descs);
-        Frame frame;
+        cv::Mat gray;
+        cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
+        CHAMO_DB::Frame frame(gray, timeStamp, mpExtractor, kMat, distMat);
         frame.bag_name = bag_name;
-        frame.frame_id = frame_id;
         cv::Mat debug_img= img.clone();
-        frame.descs = descs;
-        for (int i=0; i<(int)kps.size();i++){
-            frame.kps.push_back(kps[i]);
-            //cv::circle(debug_img, kps[i].pt, 1, cv::Scalar(255,0,0,255), 2);
+        for (int i=0; i<(int)frame.mvKeysUn.size();i++){
+            cv::circle(debug_img, frame.mvKeysUn[i].pt, 1, cv::Scalar(255,0,0,255), 2);
         }
         
-        matchTwoFrame();
+        CHAMO_DB::Initializer frame_mather(frame, 1.0, 200);
+        std::list<CHAMO_DB::Frame>::iterator iterator;
+        for (iterator = frame_list.begin(); iterator != frame_list.end(); ++iterator) {
+            cv::BFMatcher matcher;
+            std::vector<cv::DMatch> matches;
+            matcher.match(frame.mDescriptors, iterator->mDescriptors, matches);
+            std::vector<int> vMatches12;
+            vMatches12.resize(frame.mDescriptors.rows);
+            for( int j = 0; j < frame.mDescriptors.rows; j++ )
+            {
+                vMatches12.push_back(-1);
+            }
+            for( int j = 0; j < matches.size(); j++ )
+            {
+                if(matches[j].queryIdx >=vMatches12.size()){
+                    std::cout<<"matches[j].matches overflow!!"<<std::endl;
+                }
+                vMatches12[matches[j].queryIdx]=matches[j].trainIdx;
+            }
+            
+            cv::Mat R21;
+            cv::Mat t21;
+            std::vector<cv::Point3f> vP3D;
+            std::vector<bool> vbTriangulated;
+            frame_mather.Initialize(*iterator, vMatches12, R21, t21, vP3D, vbTriangulated);
+            std::vector<cv::DMatch> out_matches;
+            //matchTwoFrame(frame.descs, iterator->descs, frame.kps, iterator->kps, out_matches);
+        }
+        
+        
+        frame_list.push_back(frame);
         
         //cv::imshow("chamo", debug_img);
         //cv::waitKey(-1);
         
     }
 private:
-    void matchTwoFrame(cv::Mat descriptors1, cv::Mat descriptors2, std::vector<cv::KeyPoint>& keypoints1, std::vector<cv::KeyPoint>& keypoints2, std::vector<cv::DMatch> out_matches){
-        cv::BFMatcher matcher;
-        std::vector<cv::DMatch> matches;
-        matcher.match(descriptors1, descriptors2, matches);
-        std::sort(matches.begin(), matches.end());
-        std::vector<cv::DMatch> good_matches;
-        const int ptsPairs = std::min(1000, (int)(matches.size() * 0.4f));
-        for( int j = 0; j < ptsPairs; j++ )
+    void loadCamConif(std::string config_file){
+        cv::FileStorage fSettings(config_file, cv::FileStorage::READ);
+        if (fSettings.isOpened())
         {
-            good_matches.push_back(matches[j]);
+            kMat=cv::Mat::eye(3, 3, CV_32FC1);
+            kMat.at<float>(0,0) = fSettings["Camera.fx"];
+            kMat.at<float>(1,1) = fSettings["Camera.fy"];
+            kMat.at<float>(0,2) = fSettings["Camera.cx"];
+            kMat.at<float>(1,2) = fSettings["Camera.cy"];
+            distMat=cv::Mat(1, 5, CV_32FC1);
+            distMat.at<float>(0,0) = fSettings["Camera.k1"];
+            distMat.at<float>(0,1) = fSettings["Camera.k2"];
+            distMat.at<float>(0,4) = fSettings["Camera.k3"];
+
+            distMat.at<float>(0,2) = fSettings["Camera.p1"];
+            distMat.at<float>(0,3) = fSettings["Camera.p2"];
+            nFeatures =fSettings["ORBextractor.nFeatures"];
+            fScaleFactor =fSettings["ORBextractor.scaleFactor"];
+            level =fSettings["ORBextractor.nLevels"];
+            fast_thres =fSettings["ORBextractor.iniThFAST"];
+            min_fast_thres=fSettings["ORBextractor.minThFAST"];
         }
-        
-        std::vector<cv::Point2f> points1(good_matches.size());
-        std::vector<cv::Point2f> points2(good_matches.size());
-        std::vector<int> points1_ind(good_matches.size());
-        std::vector<int> points2_ind(good_matches.size());
-        for(int i=0; i< good_matches.size();i++){
-            int kpInd1=good_matches[i].queryIdx;
-            int kpInd2=good_matches[i].trainIdx;
-            points1_ind[i]=kpInd1;
-            points2_ind[i]=kpInd2;
-            points1[i] =keypoints1[kpInd1].pt;
-            points2[i] =keypoints2[kpInd2].pt;
-        }
-        cv::Mat inliers;
-        cv::findFundamentalMat(points1, points2, cv::FM_RANSAC, 1., 0.99, inliers);
-        for( int j = 0; j < inliers.rows; j++ )
+        else
         {
-            if(inliers.at<unsigned char>(j)==1){
-                out_matches.push_back(good_matches[j]);
-            }
+            std::cout << "Failed to load setting file "<<std::endl;
         }
     }
-    
+    cv::Mat kMat;
+    cv::Mat distMat;
     std::string bag_name;
-    std::list<Frame> frame_list;
+    std::list<CHAMO_DB::Frame> frame_list;
+    int nFeatures;
+    float fScaleFactor;
+    int level;
+    int fast_thres;
+    int min_fast_thres;
+    CHAMO_DB::ORBextractor *mpExtractor;
 };
+
+
 
 int main(int argc, char **argv){
     //float fx,fy,cx, cy, k1, k2, k3, p1, p2;
     ros::init(argc, argv, "cloud_expand");
     ros::NodeHandle nn;
     std::string bag_addr="/media/psf/Home/Documents/data/bag4chamodb";
-    std::string bag_name="2018-03-20-23-43-14"
+    std::string bag_name="2018-03-20-23-43-14";
+    std::string config_name="/media/psf/Home/Documents/code/chamo_db/src/cloud_expand/config/camera.yaml";
     rosbag::Bag bag;
-    bag.open(bag_addr,rosbag::bagmode::Read);
+    bag.open(bag_addr+"/"+bag_name+".bag",rosbag::bagmode::Read);
     rosbag::Bag bag_out;
-    bag_out.open(bag_addr+"/"+bag_name+".bag", rosbag::bagmode::Write);
+    bag_out.open(bag_addr+"/chamo_re.bag", rosbag::bagmode::Write);
     SystemFront mySys;
-    mySys.init(bag_name);
+    mySys.init(bag_name, config_name);
     std::vector<std::string> topics;
     topics.push_back("img_chamo");
     rosbag::View view(bag, rosbag::TopicQuery(topics));
@@ -121,7 +150,7 @@ int main(int argc, char **argv){
             cv::Mat temp_img;
             temp_img = cv::imdecode(simg->jpg, CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR);
             std::vector<Connection> outConn;
-            mySys.processData(img_count, temp_img, outConn);
+            mySys.processData(temp_img, simg->absTimestamp ,outConn);
             cloud_expand::connection conn_msg;
             for (int i=0;i<(int)outConn.size();i++){
                 conn_msg.frame_id1.push_back(outConn[i].frame_id1);

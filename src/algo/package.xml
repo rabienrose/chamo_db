@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>cloud_expand</name>
+  <name>chamo_algo</name>
   <version>0.0.0</version>
   <description>cloud_expand package</description>
   <maintainer email="test@todo.todo">test</maintainer>
@@ -12,5 +12,4 @@
   <build_depend>std_msgs</build_depend>
   <run_depend>roscpp</run_depend> 
   <run_depend>std_msgs</run_depend>
-  <build_depend>chamo_algo</build_depend>
 </package>

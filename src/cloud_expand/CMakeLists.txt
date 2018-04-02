@@ -29,13 +29,18 @@ generate_messages(
 )
 
 catkin_package(CATKIN_DEPENDS message_runtime)
+set(CHAMO_LIB ${PROJECT_SOURCE_DIR}/../algo/lib/libchamo_algo.so)
+set(CHMAO_INCLUDE 
+  ${PROJECT_SOURCE_DIR}/../algo/include
+  ${PROJECT_SOURCE_DIR}/src/save_bag
+)
 
 find_package(OpenCV REQUIRED)
 message(STATUS ${catkin_INCLUDE_DIRS})
-INCLUDE_DIRECTORIES(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${CHMAO_INCLUDE})
 
 add_executable(cloud_expand src/main.cpp)
-target_link_libraries(cloud_expand ${catkin_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(cloud_expand ${catkin_LIBRARIES} ${OpenCV_LIBS} ${CHAMO_LIB})
 set(CATKIN_PACKAGE_BIN_DESTINATION bin/)
 
 install(TARGETS ${PROJECT_NAME}
