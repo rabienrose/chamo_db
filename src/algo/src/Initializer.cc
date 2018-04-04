@@ -38,9 +38,10 @@ bool Initializer::Initialize(const Frame &CurrentFrame, const std::vector<int> &
         else
             mvbMatched1[i]=false;
     }
+    
 
     const int N = mvMatches12.size();
-
+    std::cout<<"matched count: "<<N<<std::endl;
     // Indices for minimum set selection
     std::vector<size_t> vAllIndices;
     vAllIndices.reserve(N);

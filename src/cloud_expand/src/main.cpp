@@ -30,6 +30,7 @@ public:
     bool init(std::string bag_name_, std::string config_file){
         bag_name=bag_name_;
         loadCamConif(config_file);
+        std::cout <<"fScaleFactor: "<<fScaleFactor<<std::endl;
         mpExtractor = new CHAMO_DB::ORBextractor(nFeatures,fScaleFactor,level,fast_thres, min_fast_thres);
     }
     bool processData(cv::Mat img, double timeStamp, std::vector<Connection>& outConn){
@@ -39,27 +40,29 @@ public:
         cv::Mat descs;
         cv::Mat gray;
         cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
-        CHAMO_DB::Frame frame(gray, timeStamp, mpExtractor, kMat, distMat);
-        frame.bag_name = bag_name;
+        std::shared_ptr<CHAMO_DB::Frame> frame= std::make_shared<CHAMO_DB::Frame>(gray, timeStamp, mpExtractor, kMat, distMat);
+        frame->bag_name = bag_name;
         cv::Mat debug_img= img.clone();
-        for (int i=0; i<(int)frame.mvKeysUn.size();i++){
-            cv::circle(debug_img, frame.mvKeysUn[i].pt, 1, cv::Scalar(255,0,0,255), 2);
+        for (int i=0; i<(int)frame->mvKeysUn.size();i++){
+            cv::circle(debug_img, frame->mvKeysUn[i].pt, 1, cv::Scalar(255,0,0,255), 2);
+        }
+        cv::imshow("chamo", debug_img);
+        cv::waitKey(-1);
+        if(!frame_match){
+            frame_match =  new CHAMO_DB::Initializer(*frame,1.0,200);
         }
         
-        CHAMO_DB::Initializer frame_mather(frame, 1.0, 200);
-        std::list<CHAMO_DB::Frame>::iterator iterator;
+        std::list<std::shared_ptr<CHAMO_DB::Frame>>::iterator iterator;
         for (iterator = frame_list.begin(); iterator != frame_list.end(); ++iterator) {
             cv::BFMatcher matcher;
             std::vector<cv::DMatch> matches;
-            matcher.match(frame.mDescriptors, iterator->mDescriptors, matches);
+            matcher.match(frame->mDescriptors, (*iterator)->mDescriptors, matches);
             std::vector<int> vMatches12;
-            vMatches12.resize(frame.mDescriptors.rows);
-            for( int j = 0; j < frame.mDescriptors.rows; j++ )
-            {
+            vMatches12.resize(frame->mDescriptors.rows);
+            for( int j = 0; j < frame->mDescriptors.rows; j++ ){
                 vMatches12.push_back(-1);
             }
-            for( int j = 0; j < matches.size(); j++ )
-            {
+            for( int j = 0; j < matches.size(); j++ ){
                 if(matches[j].queryIdx >=vMatches12.size()){
                     std::cout<<"matches[j].matches overflow!!"<<std::endl;
                 }
@@ -70,17 +73,14 @@ public:
             cv::Mat t21;
             std::vector<cv::Point3f> vP3D;
             std::vector<bool> vbTriangulated;
-            frame_mather.Initialize(*iterator, vMatches12, R21, t21, vP3D, vbTriangulated);
-            std::vector<cv::DMatch> out_matches;
-            //matchTwoFrame(frame.descs, iterator->descs, frame.kps, iterator->kps, out_matches);
+            frame_match->Initialize(**iterator, vMatches12, R21, t21, vP3D, vbTriangulated);
+            if(vP3D.size()>0){
+                std::cout<<vP3D[0]<<std::endl;
+            }else{
+                std::cout<<"no 3d points"<<std::endl;
+            }
         }
-        
-        
         frame_list.push_back(frame);
-        
-        //cv::imshow("chamo", debug_img);
-        //cv::waitKey(-1);
-        
     }
 private:
     void loadCamConif(std::string config_file){
@@ -113,13 +113,14 @@ private:
     cv::Mat kMat;
     cv::Mat distMat;
     std::string bag_name;
-    std::list<CHAMO_DB::Frame> frame_list;
+    std::list<std::shared_ptr<CHAMO_DB::Frame>> frame_list;
     int nFeatures;
     float fScaleFactor;
     int level;
     int fast_thres;
     int min_fast_thres;
     CHAMO_DB::ORBextractor *mpExtractor;
+    CHAMO_DB::Initializer* frame_match=NULL;
 };
 
 
