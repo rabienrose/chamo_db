@@ -12,7 +12,6 @@ Initializer::Initializer(const Frame &ReferenceFrame, float sigma, int iteration
     mK = ReferenceFrame.mK.clone();
 
     mvKeys1 = ReferenceFrame.mvKeysUn;
-
     mSigma = sigma;
     mSigma2 = sigma*sigma;
     mMaxIterations = iterations;
@@ -79,21 +78,23 @@ bool Initializer::Initialize(const Frame &CurrentFrame, const std::vector<int> &
     float SH, SF;
     cv::Mat H, F;
 
-    std::thread threadH(&Initializer::FindHomography,this,std::ref(vbMatchesInliersH), std::ref(SH), std::ref(H));
-    std::thread threadF(&Initializer::FindFundamental,this,std::ref(vbMatchesInliersF), std::ref(SF), std::ref(F));
-
-    // Wait until both threads have finished
-    threadH.join();
-    threadF.join();
-
+    FindHomography(vbMatchesInliersH, SH, H);
+    FindFundamental(vbMatchesInliersF, SF, F);
+    if(SH+SF==0){
+        return false;
+    }
     // Compute ratio of scores
     float RH = SH/(SH+SF);
+    
 
     // Try to reconstruct from homography or fundamental depending on the ratio (0.40-0.45)
-    if(RH>0.40)
+    if(RH>1.00){
+        std::cout<<"choose H"<<std::endl;
         return ReconstructH(vbMatchesInliersH,H,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
-    else //if(pF_HF>0.6)
+    }else{ //if(pF_HF>0.6)
+        std::cout<<"choose F"<<std::endl;
         return ReconstructF(vbMatchesInliersF,F,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
+    }
 
     return false;
 }
@@ -177,12 +178,14 @@ void Initializer::FindFundamental(std::vector<bool> &vbMatchesInliers, float &sc
     for(int it=0; it<mMaxIterations; it++)
     {
         // Select a minimum set
+        
         for(int j=0; j<8; j++)
         {
             int idx = mvSets[it][j];
 
             vPn1i[j] = vPn1[mvMatches12[idx].first];
             vPn2i[j] = vPn2[mvMatches12[idx].second];
+            
         }
 
         cv::Mat Fn = ComputeF21(vPn1i,vPn2i);
@@ -480,6 +483,16 @@ bool Initializer::ReconstructF(std::vector<bool> &vbMatchesInliers, cv::Mat &F21
     t21 = cv::Mat();
 
     int nMinGood = std::max(static_cast<int>(0.9*N),minTriangulated);
+    std::cout<<"N: "<<N<<std::endl;
+    std::cout<<"nGood1: "<<nGood1<<std::endl;
+    std::cout<<"nGood2: "<<nGood2<<std::endl;
+    std::cout<<"nGood3: "<<nGood3<<std::endl;
+    std::cout<<"nGood4: "<<nGood4<<std::endl;
+    
+    std::cout<<"parallax1: "<<parallax1<<std::endl;
+    std::cout<<"parallax2: "<<parallax2<<std::endl;
+    std::cout<<"parallax3: "<<parallax3<<std::endl;
+    std::cout<<"parallax4: "<<parallax4<<std::endl;
 
     int nsimilar = 0;
     if(nGood1>0.7*maxGood)
@@ -492,6 +505,8 @@ bool Initializer::ReconstructF(std::vector<bool> &vbMatchesInliers, cv::Mat &F21
         nsimilar++;
 
     // If there is not a clear winner or not enough triangulated points reject initialization
+    std::cout<<"nsimilar: "<<nsimilar<<std::endl;
+    std::cout<<"maxGood: "<<maxGood<<std::endl;
     if(maxGood<nMinGood || nsimilar>1)
     {
         return false;

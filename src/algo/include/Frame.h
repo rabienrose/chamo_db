@@ -60,6 +60,7 @@ namespace CHAMO_DB{
         static float mnMinY;
         static float mnMaxY;
         static bool mbInitialComputations;
+        int id_in_bag;
     private:
         void UndistortKeyPoints();
         void ComputeImageBounds(const cv::Mat &imLeft);
