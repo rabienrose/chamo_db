@@ -5,7 +5,7 @@
 #include <opencv2/features2d/features2d.hpp>
 
 DEFINE_string(
-    swe_feature_tracking_descriptor_type, "brisk",
+    swe_feature_tracking_descriptor_type, "freak",
     "Descriptor type to compute: 'brisk' or 'freak'");
 DEFINE_bool(
     swe_feature_tracking_descriptor_scale_invariance, true,

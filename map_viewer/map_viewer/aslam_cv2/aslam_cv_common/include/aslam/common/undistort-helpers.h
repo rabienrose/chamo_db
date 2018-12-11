@@ -29,8 +29,8 @@ static void getUndistortRectangles(const DerivedCameraType& input_camera, bool u
                                    cv::Rect_<float>& inner, cv::Rect_<float>& outer) {
   const int N = 9;
   int x, y, k;
-  cv::Ptr<CvMat> _pts(cvCreateMat(1, N * N, CV_32FC2));
-  CvPoint2D32f* pts = (CvPoint2D32f*) (_pts->data.ptr);
+    cv::Mat _pts = cv::Mat(1, N * N, CV_32FC2);
+  cv::Point2f* pts = (cv::Point2f*) (_pts.data);
 
   for (y = k = 0; y < N; y++) {
     for (x = 0; x < N; x++) {
@@ -79,7 +79,7 @@ static void getUndistortRectangles(const DerivedCameraType& input_camera, bool u
         input_camera.getDistortion().undistort(&keypoint_normalized);
       }
 
-      pts[k++] = cvPoint2D32f((float) keypoint_normalized[0], (float) keypoint_normalized[1]);
+      pts[k++] = cv::Point2f((float) keypoint_normalized[0], (float) keypoint_normalized[1]);
     }
   }
 
@@ -90,7 +90,7 @@ static void getUndistortRectangles(const DerivedCameraType& input_camera, bool u
   for (y = k = 0; y < N; y++)
   {
     for (x = 0; x < N; x++) {
-      CvPoint2D32f p = pts[k++];
+        cv::Point2f p = pts[k++];
       oX0 = MIN(oX0, p.x);
       oX1 = MAX(oX1, p.x);
       oY0 = MIN(oY0, p.y);

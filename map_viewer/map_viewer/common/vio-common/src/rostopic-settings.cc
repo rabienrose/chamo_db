@@ -9,7 +9,7 @@
 #include <glog/logging.h>
 
 DEFINE_string(
-    vio_camera_topic_suffix, "/image_raw",
+    vio_camera_topic_suffix, "",
     "Image name appended to camera topic.");
 DEFINE_string(
     vio_hardware_features_topic, "hw_features",

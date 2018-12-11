@@ -6,7 +6,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface ViewController : UIViewController
-
+    @property (nonatomic) dispatch_queue_t sessionQueue;
 
 @end
 

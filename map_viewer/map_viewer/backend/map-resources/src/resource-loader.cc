@@ -99,25 +99,25 @@ bool ResourceLoader::loadResourceFromFile<cv::Mat>(
   switch (type) {
     case ResourceType::kRawDepthMap:
     case ResourceType::kOptimizedDepthMap:
-      *resource = cv::imread(file_path, CV_LOAD_IMAGE_UNCHANGED);
+      *resource = cv::imread(file_path);
       wrong_type = CV_MAT_TYPE(resource->type()) != CV_16U;
       break;
     case ResourceType::kUndistortedImage:
     case ResourceType::kRectifiedImage:
     case ResourceType::kImageForDepthMap:
     case ResourceType::kRawImage:
-      *resource = cv::imread(file_path, CV_LOAD_IMAGE_GRAYSCALE);
+      *resource = cv::imread(file_path);
       wrong_type = CV_MAT_TYPE(resource->type()) != CV_8U;
       break;
     case ResourceType::kUndistortedColorImage:
     case ResourceType::kRectifiedColorImage:
     case ResourceType::kColorImageForDepthMap:
     case ResourceType::kRawColorImage:
-      *resource = cv::imread(file_path, CV_LOAD_IMAGE_COLOR);
+      *resource = cv::imread(file_path);
       wrong_type = CV_MAT_TYPE(resource->type()) != CV_8UC3;
       break;
     case ResourceType::kDisparityMap:
-      *resource = cv::imread(file_path, CV_LOAD_IMAGE_UNCHANGED);
+          *resource = cv::imread(file_path);
       wrong_type = CV_MAT_TYPE(resource->type()) != CV_16U;
       break;
     default:

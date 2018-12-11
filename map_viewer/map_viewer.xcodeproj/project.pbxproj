@@ -34,7 +34,6 @@
 		0400D4C621BB7817001AAC7E /* mission-baseframe.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400D4AA21BB7817001AAC7E /* mission-baseframe.cc */; };
 		0400D4C721BB7817001AAC7E /* edge.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400D4AB21BB7817001AAC7E /* edge.cc */; };
 		0400D5B521BB8214001AAC7E /* boost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0400D5B421BB8214001AAC7E /* boost.a */; };
-		0400D5B721BB821F001AAC7E /* liblib_merge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0400D5B621BB821F001AAC7E /* liblib_merge.a */; };
 		0400DCB921BB861E001AAC7E /* vio-update-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400DCB621BB861E001AAC7E /* vio-update-serialization.cc */; };
 		0400DCBA21BB861E001AAC7E /* imu-measurements-buffer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400DCB721BB861E001AAC7E /* imu-measurements-buffer.cc */; };
 		0400DCBB21BB861E001AAC7E /* rostopic-settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400DCB821BB861E001AAC7E /* rostopic-settings.cc */; };
@@ -118,10 +117,47 @@
 		0400E1AD21BBD1A8001AAC7E /* pose-interpolator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400E1A621BBD1A8001AAC7E /* pose-interpolator.cc */; };
 		0400E1DD21BBD6B0001AAC7E /* imu-integrator-eigen.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400E1CA21BBD6B0001AAC7E /* imu-integrator-eigen.cc */; };
 		0400E1DE21BBD6B0001AAC7E /* imu-integrator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0400E1CB21BBD6B0001AAC7E /* imu-integrator.cc */; };
+		040FE70321BCC889000FADB9 /* librosconsole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FA21BCC888000FADB9 /* librosconsole.a */; };
+		040FE70421BCC889000FADB9 /* librosbag_storage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FB21BCC888000FADB9 /* librosbag_storage.a */; };
+		040FE70521BCC889000FADB9 /* libroscpp_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FC21BCC888000FADB9 /* libroscpp_serialization.a */; };
+		040FE70621BCC889000FADB9 /* librosconsole_backend_interface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FD21BCC889000FADB9 /* librosconsole_backend_interface.a */; };
+		040FE70721BCC889000FADB9 /* librosconsole_print.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FE21BCC889000FADB9 /* librosconsole_print.a */; };
+		040FE70821BCC889000FADB9 /* librostime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE6FF21BCC889000FADB9 /* librostime.a */; };
+		040FE70921BCC889000FADB9 /* libxmlrpcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE70021BCC889000FADB9 /* libxmlrpcpp.a */; };
+		040FE70A21BCC889000FADB9 /* libcpp_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE70121BCC889000FADB9 /* libcpp_common.a */; };
+		040FE70B21BCC889000FADB9 /* libroscpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE70221BCC889000FADB9 /* libroscpp.a */; };
+		040FE70E21BCC8D5000FADB9 /* datasource-rosbag.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FE70D21BCC8D4000FADB9 /* datasource-rosbag.cc */; };
+		040FE75821BCD04F000FADB9 /* libros_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FE75721BCD04F000FADB9 /* libros_ext.a */; };
+		040FE75F21BCF0EE000FADB9 /* RovioInterfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 040FE75921BCF0ED000FADB9 /* RovioInterfaces.cpp */; };
+		040FE76021BCF0EE000FADB9 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 040FE75A21BCF0ED000FADB9 /* Camera.cpp */; };
+		040FE76221BCF0EE000FADB9 /* FeatureCoordinates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 040FE75C21BCF0EE000FADB9 /* FeatureCoordinates.cpp */; };
+		040FE76321BCF0EE000FADB9 /* FeatureDistance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 040FE75D21BCF0EE000FADB9 /* FeatureDistance.cpp */; };
+		040FE76421BCF0EE000FADB9 /* CameraCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 040FE75E21BCF0EE000FADB9 /* CameraCalibration.cpp */; };
+		040FEA9521BD1986000FADB9 /* measurements.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7421BD1986000FADB9 /* measurements.pb.cc */; };
+		040FEA9621BD1986000FADB9 /* descriptor.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7521BD1986000FADB9 /* descriptor.pb.cc */; };
+		040FEA9821BD1986000FADB9 /* Block.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7721BD1986000FADB9 /* Block.pb.cc */; };
+		040FEA9921BD1986000FADB9 /* vio_update.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7821BD1986000FADB9 /* vio_update.pb.cc */; };
+		040FEA9A21BD1986000FADB9 /* optional_camera_resources.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7921BD1986000FADB9 /* optional_camera_resources.pb.cc */; };
+		040FEA9F21BD1986000FADB9 /* projected_image.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA7E21BD1986000FADB9 /* projected_image.pb.cc */; };
+		040FEAA221BD1986000FADB9 /* visual-frame.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8121BD1986000FADB9 /* visual-frame.pb.cc */; };
+		040FEAA321BD1986000FADB9 /* id.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8221BD1986000FADB9 /* id.pb.cc */; };
+		040FEAA421BD1986000FADB9 /* inverted_multi_index.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8321BD1986000FADB9 /* inverted_multi_index.pb.cc */; };
+		040FEAA521BD1986000FADB9 /* plugin.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8421BD1986000FADB9 /* plugin.pb.cc */; };
+		040FEAA621BD1986000FADB9 /* eigen.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8521BD1986000FADB9 /* eigen.pb.cc */; };
+		040FEAA721BD1986000FADB9 /* localization-summary-map.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8621BD1986000FADB9 /* localization-summary-map.pb.cc */; };
+		040FEAA821BD1986000FADB9 /* Layer.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8721BD1986000FADB9 /* Layer.pb.cc */; };
+		040FEAA921BD1986000FADB9 /* resource_metadata.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8821BD1986000FADB9 /* resource_metadata.pb.cc */; };
+		040FEAAC21BD1986000FADB9 /* loop_detector_node.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8B21BD1986000FADB9 /* loop_detector_node.pb.cc */; };
+		040FEAAE21BD1986000FADB9 /* vi_map.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8D21BD1986000FADB9 /* vi_map.pb.cc */; };
+		040FEAAF21BD1986000FADB9 /* camera.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8E21BD1986000FADB9 /* camera.pb.cc */; };
+		040FEAB021BD1986000FADB9 /* vi_map_deprecated.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA8F21BD1986000FADB9 /* vi_map_deprecated.pb.cc */; };
+		040FEAB121BD1986000FADB9 /* matching_based_loop_detector.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA9021BD1986000FADB9 /* matching_based_loop_detector.pb.cc */; };
+		040FEAB221BD1986000FADB9 /* vio_types.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA9121BD1986000FADB9 /* vio_types.pb.cc */; };
+		040FEAB321BD1986000FADB9 /* resource_info_map.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA9221BD1986000FADB9 /* resource_info_map.pb.cc */; };
+		040FEAB421BD1986000FADB9 /* keyframing-heuristics-options.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 040FEA9321BD1986000FADB9 /* keyframing-heuristics-options.pb.cc */; };
+		040FEAB721BD1D3D000FADB9 /* libconsole_bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 040FEAB621BD1D3D000FADB9 /* libconsole_bridge.a */; };
+		040FEAB821BD1ECA000FADB9 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04121A9221B936570083D7AF /* opencv2.framework */; };
 		04121A8B21B92CE50083D7AF /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04121A8921B92CE50083D7AF /* ViewController.mm */; };
-		04121A9A21BA02CD0083D7AF /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04121A9221B936570083D7AF /* opencv2.framework */; };
-		04121C9521BA29490083D7AF /* libyaml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04121C9421BA29490083D7AF /* libyaml.a */; };
-		04121C9A21BA39940083D7AF /* imu-sigmas-rovio.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04121C9921BA39940083D7AF /* imu-sigmas-rovio.yaml */; };
 		04121DE721BA3B6D0083D7AF /* ncamera.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121CDF21BA3B6D0083D7AF /* ncamera.cc */; };
 		04121DE821BA3B6D0083D7AF /* ncamera-yaml-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121CE021BA3B6D0083D7AF /* ncamera-yaml-serialization.cc */; };
 		04121DE921BA3B6D0083D7AF /* camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121CE121BA3B6D0083D7AF /* camera.cc */; };
@@ -136,7 +172,6 @@
 		04121EA421BA3BC50083D7AF /* channel-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121E8F21BA3BC50083D7AF /* channel-serialization.cc */; };
 		04121EA621BA3BC50083D7AF /* hash-id.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121E9121BA3BC50083D7AF /* hash-id.cc */; };
 		04121EAA21BA3CCB0083D7AF /* channel.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121EA921BA3CCB0083D7AF /* channel.cc */; };
-		04121EAC21BA41210083D7AF /* ncamera-euroc.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04121EAB21BA41210083D7AF /* ncamera-euroc.yaml */; };
 		04121EC821BA52AD0083D7AF /* visual-nframe.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121EC121BA52AD0083D7AF /* visual-nframe.cc */; };
 		04121EC921BA52AD0083D7AF /* visual-frame.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121EC221BA52AD0083D7AF /* visual-frame.cc */; };
 		04121FBB21BA72E70083D7AF /* cubic-spline.cc in Sources */ = {isa = PBXBuildFile; fileRef = 04121F5721BA72E70083D7AF /* cubic-spline.cc */; };
@@ -171,8 +206,6 @@
 		041221C021BA807A0083D7AF /* message-flow.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0412219621BA807A0083D7AF /* message-flow.cc */; };
 		041221C421BA807A0083D7AF /* camera-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041221AF21BA807A0083D7AF /* camera-serialization.cc */; };
 		041221C521BA807A0083D7AF /* visual-frame-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041221B021BA807A0083D7AF /* visual-frame-serialization.cc */; };
-		041222AF21BAA48C0083D7AF /* libvoxblox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041222AD21BAA48C0083D7AF /* libvoxblox.a */; };
-		041222B021BAA48C0083D7AF /* libglog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041222AE21BAA48C0083D7AF /* libglog.a */; };
 		041222DA21BABD710083D7AF /* resource-map-serialization.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041222D221BABD710083D7AF /* resource-map-serialization.cc */; };
 		041222DB21BABD710083D7AF /* resource-common.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041222D321BABD710083D7AF /* resource-common.cc */; };
 		041222DC21BABD710083D7AF /* resource-conversion.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041222D421BABD710083D7AF /* resource-conversion.cc */; };
@@ -196,6 +229,14 @@
 		041223D321BAC4210083D7AF /* sensor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CA21BAC4210083D7AF /* sensor.cc */; };
 		041223D421BAC4210083D7AF /* relative-6dof-pose.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */; };
 		04213EC421B2A1C9004B4F53 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04213EC321B2A1C9004B4F53 /* CoreLocation.framework */; };
+		04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */; };
+		04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */; };
+		04F5A45821BD6FBF00FE2A7B /* imu.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45121BD6FBE00FE2A7B /* imu.yaml */; };
+		04F5A45921BD6FBF00FE2A7B /* ncamera.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45221BD6FBE00FE2A7B /* ncamera.yaml */; };
+		04F5A45A21BD6FBF00FE2A7B /* projection_matrix_freak.dat in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45321BD6FBF00FE2A7B /* projection_matrix_freak.dat */; };
+		04F5A45B21BD6FBF00FE2A7B /* rovio_default_config.info in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45421BD6FBF00FE2A7B /* rovio_default_config.info */; };
+		04F5A45C21BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45521BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat */; };
+		04FDE4D321BD3818007C5391 /* liblib_merge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0400D5B621BB821F001AAC7E /* liblib_merge.a */; };
 		CE00FB88205D6E7B00682E6F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00FB87205D6E7B00682E6F /* main.m */; };
 		CE00FB8B205D6E7B00682E6F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00FB8A205D6E7B00682E6F /* AppDelegate.m */; };
 		CE00FB91205D6E7B00682E6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE00FB8F205D6E7B00682E6F /* Main.storyboard */; };
@@ -553,12 +594,54 @@
 		0400E1C621BBD6B0001AAC7E /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		0400E1CA21BBD6B0001AAC7E /* imu-integrator-eigen.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "imu-integrator-eigen.cc"; sourceTree = "<group>"; };
 		0400E1CB21BBD6B0001AAC7E /* imu-integrator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "imu-integrator.cc"; sourceTree = "<group>"; };
+		040FE6FA21BCC888000FADB9 /* librosconsole.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librosconsole.a; path = ../thirdparty/librosconsole.a; sourceTree = "<group>"; };
+		040FE6FB21BCC888000FADB9 /* librosbag_storage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librosbag_storage.a; path = ../thirdparty/librosbag_storage.a; sourceTree = "<group>"; };
+		040FE6FC21BCC888000FADB9 /* libroscpp_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libroscpp_serialization.a; path = ../thirdparty/libroscpp_serialization.a; sourceTree = "<group>"; };
+		040FE6FD21BCC889000FADB9 /* librosconsole_backend_interface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librosconsole_backend_interface.a; path = ../thirdparty/librosconsole_backend_interface.a; sourceTree = "<group>"; };
+		040FE6FE21BCC889000FADB9 /* librosconsole_print.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librosconsole_print.a; path = ../thirdparty/librosconsole_print.a; sourceTree = "<group>"; };
+		040FE6FF21BCC889000FADB9 /* librostime.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librostime.a; path = ../thirdparty/librostime.a; sourceTree = "<group>"; };
+		040FE70021BCC889000FADB9 /* libxmlrpcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxmlrpcpp.a; path = ../thirdparty/libxmlrpcpp.a; sourceTree = "<group>"; };
+		040FE70121BCC889000FADB9 /* libcpp_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcpp_common.a; path = ../thirdparty/libcpp_common.a; sourceTree = "<group>"; };
+		040FE70221BCC889000FADB9 /* libroscpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libroscpp.a; path = ../thirdparty/libroscpp.a; sourceTree = "<group>"; };
+		040FE70C21BCC8CB000FADB9 /* datasource-rosbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "datasource-rosbag.h"; sourceTree = "<group>"; };
+		040FE70D21BCC8D4000FADB9 /* datasource-rosbag.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "datasource-rosbag.cc"; sourceTree = "<group>"; };
+		040FE75721BCD04F000FADB9 /* libros_ext.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libros_ext.a; path = ../thirdparty/libros_ext.a; sourceTree = "<group>"; };
+		040FE75921BCF0ED000FADB9 /* RovioInterfaces.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RovioInterfaces.cpp; sourceTree = "<group>"; };
+		040FE75A21BCF0ED000FADB9 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		040FE75C21BCF0EE000FADB9 /* FeatureCoordinates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FeatureCoordinates.cpp; sourceTree = "<group>"; };
+		040FE75D21BCF0EE000FADB9 /* FeatureDistance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FeatureDistance.cpp; sourceTree = "<group>"; };
+		040FE75E21BCF0EE000FADB9 /* CameraCalibration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CameraCalibration.cpp; sourceTree = "<group>"; };
+		040FE9BE21BD0B14000FADB9 /* libprotobuf.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libprotobuf.tbd; path = usr/lib/libprotobuf.tbd; sourceTree = SDKROOT; };
+		040FE9C021BD0B54000FADB9 /* libprotobuf-lite.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libprotobuf-lite.tbd"; path = "usr/lib/libprotobuf-lite.tbd"; sourceTree = SDKROOT; };
+		040FE9C421BD0FFD000FADB9 /* liblib_merge1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib_merge1.a; path = ../thirdparty/liblib_merge1.a; sourceTree = "<group>"; };
+		040FEA7421BD1986000FADB9 /* measurements.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurements.pb.cc; sourceTree = "<group>"; };
+		040FEA7521BD1986000FADB9 /* descriptor.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = descriptor.pb.cc; sourceTree = "<group>"; };
+		040FEA7721BD1986000FADB9 /* Block.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Block.pb.cc; sourceTree = "<group>"; };
+		040FEA7821BD1986000FADB9 /* vio_update.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vio_update.pb.cc; sourceTree = "<group>"; };
+		040FEA7921BD1986000FADB9 /* optional_camera_resources.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = optional_camera_resources.pb.cc; sourceTree = "<group>"; };
+		040FEA7E21BD1986000FADB9 /* projected_image.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projected_image.pb.cc; sourceTree = "<group>"; };
+		040FEA8121BD1986000FADB9 /* visual-frame.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "visual-frame.pb.cc"; sourceTree = "<group>"; };
+		040FEA8221BD1986000FADB9 /* id.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = id.pb.cc; sourceTree = "<group>"; };
+		040FEA8321BD1986000FADB9 /* inverted_multi_index.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inverted_multi_index.pb.cc; sourceTree = "<group>"; };
+		040FEA8421BD1986000FADB9 /* plugin.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin.pb.cc; sourceTree = "<group>"; };
+		040FEA8521BD1986000FADB9 /* eigen.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eigen.pb.cc; sourceTree = "<group>"; };
+		040FEA8621BD1986000FADB9 /* localization-summary-map.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "localization-summary-map.pb.cc"; sourceTree = "<group>"; };
+		040FEA8721BD1986000FADB9 /* Layer.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.pb.cc; sourceTree = "<group>"; };
+		040FEA8821BD1986000FADB9 /* resource_metadata.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resource_metadata.pb.cc; sourceTree = "<group>"; };
+		040FEA8B21BD1986000FADB9 /* loop_detector_node.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loop_detector_node.pb.cc; sourceTree = "<group>"; };
+		040FEA8D21BD1986000FADB9 /* vi_map.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vi_map.pb.cc; sourceTree = "<group>"; };
+		040FEA8E21BD1986000FADB9 /* camera.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.pb.cc; sourceTree = "<group>"; };
+		040FEA8F21BD1986000FADB9 /* vi_map_deprecated.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vi_map_deprecated.pb.cc; sourceTree = "<group>"; };
+		040FEA9021BD1986000FADB9 /* matching_based_loop_detector.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matching_based_loop_detector.pb.cc; sourceTree = "<group>"; };
+		040FEA9121BD1986000FADB9 /* vio_types.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vio_types.pb.cc; sourceTree = "<group>"; };
+		040FEA9221BD1986000FADB9 /* resource_info_map.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resource_info_map.pb.cc; sourceTree = "<group>"; };
+		040FEA9321BD1986000FADB9 /* keyframing-heuristics-options.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "keyframing-heuristics-options.pb.cc"; sourceTree = "<group>"; };
+		040FEAB621BD1D3D000FADB9 /* libconsole_bridge.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libconsole_bridge.a; path = ../thirdparty/libconsole_bridge.a; sourceTree = "<group>"; };
 		04121A8921B92CE50083D7AF /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		04121A8A21B92CE50083D7AF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		04121A9021B9364C0083D7AF /* thirdparty */ = {isa = PBXFileReference; lastKnownFileType = folder; name = thirdparty; path = ../thirdparty; sourceTree = "<group>"; };
 		04121A9221B936570083D7AF /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../thirdparty/opencv2.framework; sourceTree = "<group>"; };
 		04121C9421BA29490083D7AF /* libyaml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyaml.a; path = ../thirdparty/libyaml.a; sourceTree = "<group>"; };
-		04121C9921BA39940083D7AF /* imu-sigmas-rovio.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "imu-sigmas-rovio.yaml"; sourceTree = "<group>"; };
 		04121CCD21BA3B6D0083D7AF /* ncamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ncamera.h; sourceTree = "<group>"; };
 		04121CCE21BA3B6D0083D7AF /* distortion-equidistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "distortion-equidistant.h"; sourceTree = "<group>"; };
 		04121CCF21BA3B6D0083D7AF /* distortion-fisheye-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "distortion-fisheye-inl.h"; sourceTree = "<group>"; };
@@ -627,7 +710,6 @@
 		04121E8F21BA3BC50083D7AF /* channel-serialization.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "channel-serialization.cc"; sourceTree = "<group>"; };
 		04121E9121BA3BC50083D7AF /* hash-id.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "hash-id.cc"; sourceTree = "<group>"; };
 		04121EA921BA3CCB0083D7AF /* channel.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = channel.cc; sourceTree = "<group>"; };
-		04121EAB21BA41210083D7AF /* ncamera-euroc.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ncamera-euroc.yaml"; sourceTree = "<group>"; };
 		04121EBA21BA52AC0083D7AF /* feature-track-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "feature-track-inl.h"; sourceTree = "<group>"; };
 		04121EBB21BA52AC0083D7AF /* visual-frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "visual-frame.h"; sourceTree = "<group>"; };
 		04121EBC21BA52AD0083D7AF /* keypoint-identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "keypoint-identifier.h"; sourceTree = "<group>"; };
@@ -813,6 +895,13 @@
 		041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "relative-6dof-pose.cc"; sourceTree = "<group>"; };
 		04213EC321B2A1C9004B4F53 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04408C1421B2BF25003C5344 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */ = {isa = PBXFileReference; lastKnownFileType = file; path = ios_test_tiny.bag; sourceTree = "<group>"; };
+		04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "imu-sigmas.yaml"; sourceTree = "<group>"; };
+		04F5A45121BD6FBE00FE2A7B /* imu.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imu.yaml; sourceTree = "<group>"; };
+		04F5A45221BD6FBE00FE2A7B /* ncamera.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ncamera.yaml; sourceTree = "<group>"; };
+		04F5A45321BD6FBF00FE2A7B /* projection_matrix_freak.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = projection_matrix_freak.dat; sourceTree = "<group>"; };
+		04F5A45421BD6FBF00FE2A7B /* rovio_default_config.info */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rovio_default_config.info; sourceTree = "<group>"; };
+		04F5A45521BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = inverted_multi_index_quantizer_freak.dat; sourceTree = "<group>"; };
 		CE00FB83205D6E7B00682E6F /* map_viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE00FB87205D6E7B00682E6F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE00FB89205D6E7B00682E6F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -832,12 +921,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0400D5B721BB821F001AAC7E /* liblib_merge.a in Frameworks */,
+				04FDE4D321BD3818007C5391 /* liblib_merge.a in Frameworks */,
+				040FEAB821BD1ECA000FADB9 /* opencv2.framework in Frameworks */,
+				040FEAB721BD1D3D000FADB9 /* libconsole_bridge.a in Frameworks */,
+				040FE75821BCD04F000FADB9 /* libros_ext.a in Frameworks */,
+				040FE70621BCC889000FADB9 /* librosconsole_backend_interface.a in Frameworks */,
+				040FE70321BCC889000FADB9 /* librosconsole.a in Frameworks */,
+				040FE70421BCC889000FADB9 /* librosbag_storage.a in Frameworks */,
+				040FE70521BCC889000FADB9 /* libroscpp_serialization.a in Frameworks */,
+				040FE70721BCC889000FADB9 /* librosconsole_print.a in Frameworks */,
+				040FE70821BCC889000FADB9 /* librostime.a in Frameworks */,
+				040FE70921BCC889000FADB9 /* libxmlrpcpp.a in Frameworks */,
+				040FE70A21BCC889000FADB9 /* libcpp_common.a in Frameworks */,
+				040FE70B21BCC889000FADB9 /* libroscpp.a in Frameworks */,
 				0400D5B521BB8214001AAC7E /* boost.a in Frameworks */,
-				041222AF21BAA48C0083D7AF /* libvoxblox.a in Frameworks */,
-				041222B021BAA48C0083D7AF /* libglog.a in Frameworks */,
-				04121C9521BA29490083D7AF /* libyaml.a in Frameworks */,
-				04121A9A21BA02CD0083D7AF /* opencv2.framework in Frameworks */,
 				04213EC421B2A1C9004B4F53 /* CoreLocation.framework in Frameworks */,
 				CE71E3852081CBCB0028705F /* CoreMotion.framework in Frameworks */,
 				CEDEB6BC205E94D300782DAC /* CoreMedia.framework in Frameworks */,
@@ -1901,6 +1998,7 @@
 		0400E16421BBD017001AAC7E /* rovioli */ = {
 			isa = PBXGroup;
 			children = (
+				040FE70C21BCC8CB000FADB9 /* datasource-rosbag.h */,
 				0400E16521BBD017001AAC7E /* datasource-factory.h */,
 				0400E16621BBD017001AAC7E /* pose_update_flow.h */,
 				0400E16721BBD017001AAC7E /* localizer.h */,
@@ -1930,6 +2028,12 @@
 		0400E17D21BBD017001AAC7E /* src */ = {
 			isa = PBXGroup;
 			children = (
+				040FE75A21BCF0ED000FADB9 /* Camera.cpp */,
+				040FE75E21BCF0EE000FADB9 /* CameraCalibration.cpp */,
+				040FE75C21BCF0EE000FADB9 /* FeatureCoordinates.cpp */,
+				040FE75D21BCF0EE000FADB9 /* FeatureDistance.cpp */,
+				040FE75921BCF0ED000FADB9 /* RovioInterfaces.cpp */,
+				040FE70D21BCC8D4000FADB9 /* datasource-rosbag.cc */,
 				0400E17E21BBD017001AAC7E /* vio-update-builder.cc */,
 				0400E17F21BBD017001AAC7E /* synced-nframe-throttler.cc */,
 				0400E18021BBD017001AAC7E /* rovio-factory.cc */,
@@ -2018,11 +2122,45 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		040FEA7321BD1986000FADB9 /* pb.cc */ = {
+			isa = PBXGroup;
+			children = (
+				040FEA7421BD1986000FADB9 /* measurements.pb.cc */,
+				040FEA7521BD1986000FADB9 /* descriptor.pb.cc */,
+				040FEA7721BD1986000FADB9 /* Block.pb.cc */,
+				040FEA7821BD1986000FADB9 /* vio_update.pb.cc */,
+				040FEA7921BD1986000FADB9 /* optional_camera_resources.pb.cc */,
+				040FEA7E21BD1986000FADB9 /* projected_image.pb.cc */,
+				040FEA8121BD1986000FADB9 /* visual-frame.pb.cc */,
+				040FEA8221BD1986000FADB9 /* id.pb.cc */,
+				040FEA8321BD1986000FADB9 /* inverted_multi_index.pb.cc */,
+				040FEA8421BD1986000FADB9 /* plugin.pb.cc */,
+				040FEA8521BD1986000FADB9 /* eigen.pb.cc */,
+				040FEA8621BD1986000FADB9 /* localization-summary-map.pb.cc */,
+				040FEA8721BD1986000FADB9 /* Layer.pb.cc */,
+				040FEA8821BD1986000FADB9 /* resource_metadata.pb.cc */,
+				040FEA8B21BD1986000FADB9 /* loop_detector_node.pb.cc */,
+				040FEA8D21BD1986000FADB9 /* vi_map.pb.cc */,
+				040FEA8E21BD1986000FADB9 /* camera.pb.cc */,
+				040FEA8F21BD1986000FADB9 /* vi_map_deprecated.pb.cc */,
+				040FEA9021BD1986000FADB9 /* matching_based_loop_detector.pb.cc */,
+				040FEA9121BD1986000FADB9 /* vio_types.pb.cc */,
+				040FEA9221BD1986000FADB9 /* resource_info_map.pb.cc */,
+				040FEA9321BD1986000FADB9 /* keyframing-heuristics-options.pb.cc */,
+			);
+			path = pb.cc;
+			sourceTree = "<group>";
+		};
 		04121C9821BA39940083D7AF /* config */ = {
 			isa = PBXGroup;
 			children = (
-				04121EAB21BA41210083D7AF /* ncamera-euroc.yaml */,
-				04121C9921BA39940083D7AF /* imu-sigmas-rovio.yaml */,
+				04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */,
+				04F5A45121BD6FBE00FE2A7B /* imu.yaml */,
+				04F5A45521BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat */,
+				04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */,
+				04F5A45221BD6FBE00FE2A7B /* ncamera.yaml */,
+				04F5A45321BD6FBF00FE2A7B /* projection_matrix_freak.dat */,
+				04F5A45421BD6FBF00FE2A7B /* rovio_default_config.info */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -2736,6 +2874,7 @@
 		CE00FB85205D6E7B00682E6F /* map_viewer */ = {
 			isa = PBXGroup;
 			children = (
+				040FEA7321BD1986000FADB9 /* pb.cc */,
 				0400E12B21BBD017001AAC7E /* rovioli */,
 				041223E121BAC5C00083D7AF /* algorithms */,
 				041222F521BAC12F0083D7AF /* map-structure */,
@@ -2767,6 +2906,20 @@
 		CE00FB9D205D6EDC00682E6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				040FEAB621BD1D3D000FADB9 /* libconsole_bridge.a */,
+				040FE9C421BD0FFD000FADB9 /* liblib_merge1.a */,
+				040FE9C021BD0B54000FADB9 /* libprotobuf-lite.tbd */,
+				040FE9BE21BD0B14000FADB9 /* libprotobuf.tbd */,
+				040FE75721BCD04F000FADB9 /* libros_ext.a */,
+				040FE70121BCC889000FADB9 /* libcpp_common.a */,
+				040FE6FB21BCC888000FADB9 /* librosbag_storage.a */,
+				040FE6FD21BCC889000FADB9 /* librosconsole_backend_interface.a */,
+				040FE6FE21BCC889000FADB9 /* librosconsole_print.a */,
+				040FE6FA21BCC888000FADB9 /* librosconsole.a */,
+				040FE6FC21BCC888000FADB9 /* libroscpp_serialization.a */,
+				040FE70221BCC889000FADB9 /* libroscpp.a */,
+				040FE6FF21BCC889000FADB9 /* librostime.a */,
+				040FE70021BCC889000FADB9 /* libxmlrpcpp.a */,
 				0400D5B621BB821F001AAC7E /* liblib_merge.a */,
 				0400D5B421BB8214001AAC7E /* boost.a */,
 				041222AE21BAA48C0083D7AF /* libglog.a */,
@@ -2848,9 +3001,14 @@
 			files = (
 				CE00FB96205D6E7B00682E6F /* LaunchScreen.storyboard in Resources */,
 				CE00FB93205D6E7B00682E6F /* Assets.xcassets in Resources */,
-				04121C9A21BA39940083D7AF /* imu-sigmas-rovio.yaml in Resources */,
+				04F5A45821BD6FBF00FE2A7B /* imu.yaml in Resources */,
+				04F5A45C21BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat in Resources */,
+				04F5A45A21BD6FBF00FE2A7B /* projection_matrix_freak.dat in Resources */,
+				04F5A45B21BD6FBF00FE2A7B /* rovio_default_config.info in Resources */,
+				04F5A45921BD6FBF00FE2A7B /* ncamera.yaml in Resources */,
+				04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */,
+				04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */,
 				CE00FB91205D6E7B00682E6F /* Main.storyboard in Resources */,
-				04121EAC21BA41210083D7AF /* ncamera-euroc.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2864,13 +3022,19 @@
 				04121FD021BA72E80083D7AF /* gnuplot-interface.cc in Sources */,
 				04121FEC21BA76CD0083D7AF /* thread-pool.cc in Sources */,
 				0400E0BD21BBC811001AAC7E /* vi-map-stats.cc in Sources */,
+				040FEAAF21BD1986000FADB9 /* camera.pb.cc in Sources */,
 				0400E19521BBD018001AAC7E /* localizer.cc in Sources */,
 				CE00FB8B205D6E7B00682E6F /* AppDelegate.m in Sources */,
 				041223B321BAC3C20083D7AF /* pose-graph.cc in Sources */,
 				0400D4AE21BB7817001AAC7E /* loopclosure-edge.cc in Sources */,
 				0400E18F21BBD018001AAC7E /* map-builder-flow.cc in Sources */,
+				040FE76221BCF0EE000FADB9 /* FeatureCoordinates.cpp in Sources */,
 				04121FBB21BA72E70083D7AF /* cubic-spline.cc in Sources */,
+				040FEAAE21BD1986000FADB9 /* vi_map.pb.cc in Sources */,
+				040FEA9F21BD1986000FADB9 /* projected_image.pb.cc in Sources */,
+				040FEAA621BD1986000FADB9 /* eigen.pb.cc in Sources */,
 				0400E0BA21BBC811001AAC7E /* vi-map-nearest-neighbor-lookup.cc in Sources */,
+				040FE76321BCF0EE000FADB9 /* FeatureDistance.cpp in Sources */,
 				04121FC821BA72E80083D7AF /* sigint-breaker.cc in Sources */,
 				0400DCE221BB86D8001AAC7E /* undistorter-mapped.cc in Sources */,
 				0400E0B921BBC811001AAC7E /* vi-map-geometry.cc in Sources */,
@@ -2901,6 +3065,7 @@
 				0400DF4B21BBBC9D001AAC7E /* lp-solve-sparsification.cc in Sources */,
 				0400DD6C21BBB0D7001AAC7E /* match-outlier-rejection-twopt.cc in Sources */,
 				04121FCD21BA72E80083D7AF /* tridiagonal-matrix.cc in Sources */,
+				040FEA9821BD1986000FADB9 /* Block.pb.cc in Sources */,
 				041222E021BABD710083D7AF /* resource-cache.cc in Sources */,
 				0400E0BE21BBC811001AAC7E /* vi-map-queries.cc in Sources */,
 				0400DE9221BBB6A5001AAC7E /* triangulation.cc in Sources */,
@@ -2923,6 +3088,8 @@
 				0400DCE121BB86D8001AAC7E /* visual-pipeline-freak.cc in Sources */,
 				0400D4BB21BB7817001AAC7E /* pose-graph.cc in Sources */,
 				0400DF4821BBBC9D001AAC7E /* keyframe-pruning.cc in Sources */,
+				040FE76021BCF0EE000FADB9 /* Camera.cpp in Sources */,
+				040FE70E21BCC8D5000FADB9 /* datasource-rosbag.cc in Sources */,
 				0400E19221BBD018001AAC7E /* feature-tracking.cc in Sources */,
 				04121FC721BA72E70083D7AF /* progress-bar.cc in Sources */,
 				0400D4C721BB7817001AAC7E /* edge.cc in Sources */,
@@ -2936,20 +3103,25 @@
 				0400D4BC21BB7817001AAC7E /* trajectory-edge.cc in Sources */,
 				04121EA421BA3BC50083D7AF /* channel-serialization.cc in Sources */,
 				0400DD3A21BBAFB5001AAC7E /* matching-problem.cc in Sources */,
+				040FEA9A21BD1986000FADB9 /* optional_camera_resources.pb.cc in Sources */,
 				0400D4B721BB7817001AAC7E /* optional-sensor-data.cc in Sources */,
 				041223CD21BAC4210083D7AF /* imu.cc in Sources */,
 				0400DEB021BBBA00001AAC7E /* descriptor-projection.cc in Sources */,
 				0400DD3E21BBAFB5001AAC7E /* gyro-two-frame-matcher.cc in Sources */,
 				0400DD6B21BBB0D7001AAC7E /* pnp-pose-estimator.cc in Sources */,
 				0400DEAE21BBBA00001AAC7E /* map-track-extractor.cc in Sources */,
+				040FEAB221BD1986000FADB9 /* vio_types.pb.cc in Sources */,
 				0400DCFF21BBAE83001AAC7E /* feature-track-extractor.cc in Sources */,
 				04121FE921BA76CD0083D7AF /* reader-first-reader-writer-lock.cc in Sources */,
 				041223B421BAC3C20083D7AF /* vertex.cc in Sources */,
 				04121DEA21BA3B6D0083D7AF /* distortion-equidistant.cc in Sources */,
 				0400D4B221BB7817001AAC7E /* structure-loopclosure-edge.cc in Sources */,
+				040FEAA321BD1986000FADB9 /* id.pb.cc in Sources */,
 				04121FC121BA72E70083D7AF /* feature-descriptor-ref.cc in Sources */,
 				0400E18D21BBD018001AAC7E /* synced-nframe-throttler.cc in Sources */,
 				0400E10E21BBCA24001AAC7E /* inverted-multi-product-quantization-index.cc in Sources */,
+				040FEAAC21BD1986000FADB9 /* loop_detector_node.pb.cc in Sources */,
+				040FEA9621BD1986000FADB9 /* descriptor.pb.cc in Sources */,
 				0400DEFE21BBBBCA001AAC7E /* inlier-index-with-reprojection-error.cc in Sources */,
 				04121FD121BA72E80083D7AF /* unique-id.cc in Sources */,
 				04121FCC21BA72E80083D7AF /* multi-threaded-progress-bar.cc in Sources */,
@@ -2967,6 +3139,7 @@
 				0400E18E21BBD018001AAC7E /* rovio-factory.cc in Sources */,
 				0400DF5021BBBC9D001AAC7E /* sampler-factory.cc in Sources */,
 				0400DCBA21BB861E001AAC7E /* imu-measurements-buffer.cc in Sources */,
+				040FEAB021BD1986000FADB9 /* vi_map_deprecated.pb.cc in Sources */,
 				0400DF4F21BBBC9D001AAC7E /* sampler-base.cc in Sources */,
 				04121EA621BA3BC50083D7AF /* hash-id.cc in Sources */,
 				04121DF021BA3B6D0083D7AF /* camera-factory.cc in Sources */,
@@ -2977,16 +3150,21 @@
 				0400D4B421BB7817001AAC7E /* landmark-quality-metrics.cc in Sources */,
 				0400D4B621BB7817001AAC7E /* transformation-edge.cc in Sources */,
 				04121FBF21BA72E70083D7AF /* condition.cc in Sources */,
+				040FEAA421BD1986000FADB9 /* inverted_multi_index.pb.cc in Sources */,
 				0400DF0C21BBBC67001AAC7E /* localization-summary-map.cc in Sources */,
 				041223D221BAC4210083D7AF /* measurement.cc in Sources */,
 				04121DEC21BA3B6D0083D7AF /* distortion-fisheye.cc in Sources */,
 				0400E1AC21BBD1A8001AAC7E /* landmark-triangulation.cc in Sources */,
 				0400E11B21BBCA24001AAC7E /* train-vocabulary.cc in Sources */,
+				040FEAB321BD1986000FADB9 /* resource_info_map.pb.cc in Sources */,
 				04121EAA21BA3CCB0083D7AF /* channel.cc in Sources */,
 				0400DF0B21BBBC67001AAC7E /* localization-summary-map-creation.cc in Sources */,
 				04121DEB21BA3B6D0083D7AF /* camera-unified-projection.cc in Sources */,
+				040FEAB421BD1986000FADB9 /* keyframing-heuristics-options.pb.cc in Sources */,
 				0400DCBB21BB861E001AAC7E /* rostopic-settings.cc in Sources */,
+				040FEA9521BD1986000FADB9 /* measurements.pb.cc in Sources */,
 				04121DF121BA3B6D0083D7AF /* camera-yaml-serialization.cc in Sources */,
+				040FEAA721BD1986000FADB9 /* localization-summary-map.pb.cc in Sources */,
 				0400DD0121BBAE83001AAC7E /* feature-detection-extraction.cc in Sources */,
 				0400E10621BBCA24001AAC7E /* learn-product-quantization.cc in Sources */,
 				CE00FB88205D6E7B00682E6F /* main.m in Sources */,
@@ -3019,13 +3197,17 @@
 				04121DE921BA3B6D0083D7AF /* camera.cc in Sources */,
 				0400E0BC21BBC811001AAC7E /* near-camera-pose-sampling.cc in Sources */,
 				0400D4C521BB7817001AAC7E /* optional-sensor-extrinsics.cc in Sources */,
+				040FE75F21BCF0EE000FADB9 /* RovioInterfaces.cpp in Sources */,
 				04121FC021BA72E70083D7AF /* file-logger.cc in Sources */,
 				0400DEDF21BBBA41001AAC7E /* helpers.cc in Sources */,
+				040FE76421BCF0EE000FADB9 /* CameraCalibration.cpp in Sources */,
+				040FEAA521BD1986000FADB9 /* plugin.pb.cc in Sources */,
 				0400E1DE21BBD6B0001AAC7E /* imu-integrator.cc in Sources */,
 				041223D421BAC4210083D7AF /* relative-6dof-pose.cc in Sources */,
 				041222DD21BABD710083D7AF /* tinyply.cc in Sources */,
 				04121DEE21BA3B6D0083D7AF /* distortion-radtan.cc in Sources */,
 				041222DA21BABD710083D7AF /* resource-map-serialization.cc in Sources */,
+				040FEAA821BD1986000FADB9 /* Layer.pb.cc in Sources */,
 				04121FC321BA72E70083D7AF /* file-system-tools.cc in Sources */,
 				0400DD3C21BBAFB5001AAC7E /* match-helpers.cc in Sources */,
 				0400DF4C21BBBC9D001AAC7E /* random-sampling.cc in Sources */,
@@ -3034,13 +3216,17 @@
 				0400E19421BBD018001AAC7E /* rovioli-node.cc in Sources */,
 				0400DCE521BB86D8001AAC7E /* undistorter.cc in Sources */,
 				0400E0B621BBC811001AAC7E /* vi-map-manipulation.cc in Sources */,
+				040FEAB121BD1986000FADB9 /* matching_based_loop_detector.pb.cc in Sources */,
+				040FEA9921BD1986000FADB9 /* vio_update.pb.cc in Sources */,
 				04121FBD21BA72E70083D7AF /* breakpoints.cc in Sources */,
 				041223CC21BAC4210083D7AF /* sensor-factory.cc in Sources */,
 				0400DF4721BBBC9D001AAC7E /* graph-partition-sampler.cc in Sources */,
 				041223CE21BAC4210083D7AF /* sensor-system.cc in Sources */,
 				0400E19821BBD018001AAC7E /* rovio-flow.cc in Sources */,
 				0400DD1721BBAF4F001AAC7E /* feature-tracker-gyro.cc in Sources */,
+				040FEAA221BD1986000FADB9 /* visual-frame.pb.cc in Sources */,
 				04121A8B21B92CE50083D7AF /* ViewController.mm in Sources */,
+				040FEAA921BD1986000FADB9 /* resource_metadata.pb.cc in Sources */,
 				0400DEFF21BBBBCA001AAC7E /* loop-closure-handler.cc in Sources */,
 				041223B221BAC3C20083D7AF /* edge.cc in Sources */,
 			);
@@ -3203,6 +3389,7 @@
 					"$(SRCROOT)/map_viewer/algorithms/feature-tracking/include",
 					"$(SRCROOT)/map_viewer/backend/map-resources/include",
 					"$(SRCROOT)/map_viewer/rovioli/include",
+					"$(SRCROOT)/../include/ros",
 				);
 				INFOPLIST_FILE = map_viewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
@@ -3261,6 +3448,7 @@
 					"$(SRCROOT)/map_viewer/algorithms/feature-tracking/include",
 					"$(SRCROOT)/map_viewer/backend/map-resources/include",
 					"$(SRCROOT)/map_viewer/rovioli/include",
+					"$(SRCROOT)/../include/ros",
 				);
 				INFOPLIST_FILE = map_viewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;

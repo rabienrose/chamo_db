@@ -7,7 +7,7 @@
 #include <aslam/frames/visual-frame.h>
 #include <aslam/tracker/tracking-helpers.h>
 #include <gflags/gflags.h>
-#include <opencv/highgui.h>
+#include <opencv2/highgui.hpp>
 #include <opencv2/core/version.hpp>
 #include <opencv2/features2d.hpp>
 #include <opencv2/xfeatures2d.hpp>
@@ -43,7 +43,7 @@ void FeatureDetectorExtractor::initialize() {
       detector_settings_.orb_detector_pyramid_levels,
       orb_detector_edge_threshold, detector_settings_.orb_detector_first_level,
       detector_settings_.orb_detector_WTA_K,
-      detector_settings_.orb_detector_score_type,
+                              (cv::ORB::ScoreType)detector_settings_.orb_detector_score_type,
       detector_settings_.orb_detector_patch_size,
       detector_settings_.orb_detector_fast_threshold);
 

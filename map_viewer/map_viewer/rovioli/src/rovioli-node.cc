@@ -1,6 +1,16 @@
 #include "rovioli/rovioli-node.h"
 
 #include <string>
+#include "rovioli/datasource-flow.h"
+#include "rovioli/data-publisher-flow.h"
+#include "rovioli/feature-tracking-flow.h"
+#include "rovioli/imu-camera-synchronizer-flow.h"
+#include "rovioli/localizer-flow.h"
+#include "rovioli/map-builder-flow.h"
+#include "rovioli/rovio-flow.h"
+#include "rovioli/synced-nframe-throttler-flow.h"
+#include "rovioli/pose_update_flow.h"
+
 
 #include <aslam/cameras/ncamera.h>
 #include <localization-summary-map/localization-summary-map.h>
@@ -15,7 +25,7 @@
 #include "rovioli/rovio-flow.h"
 #include "rovioli/synced-nframe-throttler-flow.h"
 #include "rovioli/pose_update_flow.h"
-
+DEFINE_string(lidar_calibration_file, "", "");
 DEFINE_bool(
     rovioli_run_map_builder, true,
     "When set to false, the map builder will be deactivated and no map will be "
