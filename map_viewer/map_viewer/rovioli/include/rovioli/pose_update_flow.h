@@ -12,26 +12,25 @@
 DECLARE_string(datasource_rosbag);
 DECLARE_string(lidar_calibration_file); 
 namespace rovioli {
-    
-std::vector<std::string> split(const std::string& str, const std::string& delim)
-{
-    std::vector<std::string> tokens;
-    size_t prev = 0, pos = 0;
-    do
-    {
-        pos = str.find(delim, prev);
-        if (pos == std::string::npos) pos = str.length();
-        std::string token = str.substr(prev, pos-prev);
-        if (!token.empty()) tokens.push_back(token);
-        prev = pos + delim.length();
-    }
-    while (pos < str.length() && prev < str.length());
-    return tokens;
-}
 
 class PoseUpdateFlow {
 public:
     std::map<double, aslam::Transformation, std::greater<double>> poses;
+    std::vector<std::string> split(const std::string& str, const std::string& delim)
+    {
+        std::vector<std::string> tokens;
+        size_t prev = 0, pos = 0;
+        do
+        {
+            pos = str.find(delim, prev);
+            if (pos == std::string::npos) pos = str.length();
+            std::string token = str.substr(prev, pos-prev);
+            if (!token.empty()) tokens.push_back(token);
+            prev = pos + delim.length();
+        }
+        while (pos < str.length() && prev < str.length());
+        return tokens;
+    }
     explicit PoseUpdateFlow(const aslam::NCamera& camera_system, std::string traj="") {
         const aslam::Transformation t_cb = camera_system.get_T_C_B(0);
         std::ifstream infile(traj);

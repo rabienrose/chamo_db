@@ -229,6 +229,10 @@
 		041223D321BAC4210083D7AF /* sensor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CA21BAC4210083D7AF /* sensor.cc */; };
 		041223D421BAC4210083D7AF /* relative-6dof-pose.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */; };
 		04213EC421B2A1C9004B4F53 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04213EC321B2A1C9004B4F53 /* CoreLocation.framework */; };
+		0499C32321C0EBBC009C2A4C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32221C0EBBB009C2A4C /* art.scnassets */; };
+		0499C32521C0ED80009C2A4C /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0499C32421C0ED80009C2A4C /* SceneKit.framework */; };
+		0499C32721C10ADC009C2A4C /* localization_summary_map in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32621C10ADC009C2A4C /* localization_summary_map */; };
+		0499C32921C15446009C2A4C /* data.bag in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32821C15446009C2A4C /* data.bag */; };
 		04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */; };
 		04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */; };
 		04F5A45821BD6FBF00FE2A7B /* imu.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45121BD6FBE00FE2A7B /* imu.yaml */; };
@@ -895,6 +899,10 @@
 		041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "relative-6dof-pose.cc"; sourceTree = "<group>"; };
 		04213EC321B2A1C9004B4F53 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04408C1421B2BF25003C5344 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0499C32221C0EBBB009C2A4C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		0499C32421C0ED80009C2A4C /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		0499C32621C10ADC009C2A4C /* localization_summary_map */ = {isa = PBXFileReference; lastKnownFileType = file; path = localization_summary_map; sourceTree = "<group>"; };
+		0499C32821C15446009C2A4C /* data.bag */ = {isa = PBXFileReference; lastKnownFileType = file; path = data.bag; sourceTree = "<group>"; };
 		04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */ = {isa = PBXFileReference; lastKnownFileType = file; path = ios_test_tiny.bag; sourceTree = "<group>"; };
 		04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "imu-sigmas.yaml"; sourceTree = "<group>"; };
 		04F5A45121BD6FBE00FE2A7B /* imu.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imu.yaml; sourceTree = "<group>"; };
@@ -921,6 +929,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0499C32521C0ED80009C2A4C /* SceneKit.framework in Frameworks */,
 				04FDE4D321BD3818007C5391 /* liblib_merge.a in Frameworks */,
 				040FEAB821BD1ECA000FADB9 /* opencv2.framework in Frameworks */,
 				040FEAB721BD1D3D000FADB9 /* libconsole_bridge.a in Frameworks */,
@@ -2154,6 +2163,8 @@
 		04121C9821BA39940083D7AF /* config */ = {
 			isa = PBXGroup;
 			children = (
+				0499C32821C15446009C2A4C /* data.bag */,
+				0499C32621C10ADC009C2A4C /* localization_summary_map */,
 				04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */,
 				04F5A45121BD6FBE00FE2A7B /* imu.yaml */,
 				04F5A45521BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat */,
@@ -2874,6 +2885,7 @@
 		CE00FB85205D6E7B00682E6F /* map_viewer */ = {
 			isa = PBXGroup;
 			children = (
+				0499C32221C0EBBB009C2A4C /* art.scnassets */,
 				040FEA7321BD1986000FADB9 /* pb.cc */,
 				0400E12B21BBD017001AAC7E /* rovioli */,
 				041223E121BAC5C00083D7AF /* algorithms */,
@@ -2906,6 +2918,7 @@
 		CE00FB9D205D6EDC00682E6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0499C32421C0ED80009C2A4C /* SceneKit.framework */,
 				040FEAB621BD1D3D000FADB9 /* libconsole_bridge.a */,
 				040FE9C421BD0FFD000FADB9 /* liblib_merge1.a */,
 				040FE9C021BD0B54000FADB9 /* libprotobuf-lite.tbd */,
@@ -3000,8 +3013,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE00FB96205D6E7B00682E6F /* LaunchScreen.storyboard in Resources */,
+				0499C32321C0EBBC009C2A4C /* art.scnassets in Resources */,
 				CE00FB93205D6E7B00682E6F /* Assets.xcassets in Resources */,
 				04F5A45821BD6FBF00FE2A7B /* imu.yaml in Resources */,
+				0499C32921C15446009C2A4C /* data.bag in Resources */,
 				04F5A45C21BD6FBF00FE2A7B /* inverted_multi_index_quantizer_freak.dat in Resources */,
 				04F5A45A21BD6FBF00FE2A7B /* projection_matrix_freak.dat in Resources */,
 				04F5A45B21BD6FBF00FE2A7B /* rovio_default_config.info in Resources */,
@@ -3009,6 +3024,7 @@
 				04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */,
 				04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */,
 				CE00FB91205D6E7B00682E6F /* Main.storyboard in Resources */,
+				0499C32721C10ADC009C2A4C /* localization_summary_map in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

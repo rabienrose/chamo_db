@@ -1,15 +1,7 @@
 #include "rovioli/rovioli-node.h"
 
 #include <string>
-#include "rovioli/datasource-flow.h"
-#include "rovioli/data-publisher-flow.h"
-#include "rovioli/feature-tracking-flow.h"
-#include "rovioli/imu-camera-synchronizer-flow.h"
-#include "rovioli/localizer-flow.h"
-#include "rovioli/map-builder-flow.h"
-#include "rovioli/rovio-flow.h"
-#include "rovioli/synced-nframe-throttler-flow.h"
-#include "rovioli/pose_update_flow.h"
+
 
 
 #include <aslam/cameras/ncamera.h>

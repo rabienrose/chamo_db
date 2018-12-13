@@ -29,6 +29,8 @@ MESSAGE_FLOW_TOPIC(LOCALIZATION_RESULT, vio::LocalizationResult::ConstPtr);
 // Raw estimate of the VINS.
 MESSAGE_FLOW_TOPIC(VIO_UPDATES, vio::VioUpdate::ConstPtr);
 
+MESSAGE_FLOW_TOPIC(CUR_POSI, Eigen::Vector3d);
+
 // Raw estimate output of ROVIO.
 MESSAGE_FLOW_TOPIC(ROVIO_ESTIMATES, rovioli::RovioEstimate::ConstPtr);
 
