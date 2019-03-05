@@ -372,7 +372,6 @@ bool RovioInterfaceImpl<FILTER>::getState(const bool get_feature_update,
   if (!filter_update->isInitialized) {
     return false;
   }
-  
   filter_update->debug_img=mpFilter_->safe_.img_[0];
 
   // Get time stamp of update.
@@ -595,14 +594,10 @@ template <typename FILTER> void RovioInterfaceImpl<FILTER>::visualizeUpdate() {
   for (int i = 0; i < mtState::nCam_; i++) {
     if (!mpFilter_->safe_.img_[i].empty() &&
         mpImgUpdate_->doFrameVisualisation_) {
-      //cv::imshow("Tracker" + std::to_string(i), mpFilter_->safe_.img_[i]);
-      //cv::waitKey(1);
     }
   }
   if (!mpFilter_->safe_.patchDrawing_.empty() &&
       mpImgUpdate_->visualizePatches_) {
-    cv::imshow("Patches", mpFilter_->safe_.patchDrawing_);
-    cv::waitKey(1);
   }
 
   mtState &state = mpFilter_->safe_.state_;

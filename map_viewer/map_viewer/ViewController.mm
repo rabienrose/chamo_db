@@ -2,7 +2,6 @@
 #include "Eigen/Dense"
 #include "yaml-cpp/yaml.h"
 #include <iostream>
-#include "aslam/cameras/ncamera.h"
 #include "gflags/gflags.h"
 #include <localization-summary-map/localization-summary-map-creation.h>
 #include <localization-summary-map/localization-summary-map.h>
@@ -12,6 +11,8 @@
 #include <sensors/imu.h>
 #include <sensors/sensor-factory.h>
 #include <vi-map/vi-map-serialization.h>
+#include <math.h>
+
 
 
 #include <maplab-common/threading-helpers.h>
@@ -43,6 +44,9 @@ DEFINE_bool(
             "Optimize and process the map into a localization map before "
             "saving it.");
 
+DEFINE_bool(use_map, false, "");
+DEFINE_bool(do_simulation, false, "");
+
 DECLARE_bool(map_builder_save_image_as_resources);
 DECLARE_string(datasource_rosbag);
 DECLARE_string(algorithm_config_file);
@@ -59,10 +63,37 @@ DECLARE_string(lc_projection_matrix_filename);
 DECLARE_string(lc_projected_quantizer_filename);
 DECLARE_int32(num_hardware_threads);
 
+@interface ViewController ()
+@end
+#define PI 3.1415
+@implementation ViewController
+- (int)getCamType{
+    return cam_type;
+}
+- (void)setCamType:(int)type{
+    cam_type=type;
+}
+
+- (cv::Mat)getNewFrame{
+    cv::Mat img;
+    if(hasNewFrame){
+        if (loc_result){
+            hasNewFrame=false;
+            img =loc_result->debug_img;
+        }
+    }
+    return img;
+}
 
 void loadFlags(){
+    FLAGS_do_simulation=false;
     NSBundle* myBundle = [NSBundle mainBundle];
-    NSString* mycam_str = [myBundle pathForResource:@"ncamera" ofType:@"yaml"];
+    NSString* mycam_str;
+    if(FLAGS_do_simulation){
+        mycam_str = [myBundle pathForResource:@"ncamera" ofType:@"yaml"];
+    }else{
+        mycam_str = [myBundle pathForResource:@"ncamera_ios" ofType:@"yaml"];
+    }
     FLAGS_ncamera_calibration=[mycam_str UTF8String];
     NSString* myimu_str = [myBundle pathForResource:@"imu" ofType:@"yaml"];
     FLAGS_imu_parameters_maplab =[myimu_str UTF8String];
@@ -82,8 +113,14 @@ void loadFlags(){
     
     NSString* myalgoconfig_str = [myBundle pathForResource:@"rovio_default_config" ofType:@"info"];
     FLAGS_algorithm_config_file=[myalgoconfig_str UTF8String];
-    FLAGS_summary_time=true;
-    FLAGS_datasource_type="rosbag";
+    FLAGS_summary_time=false;
+    
+    if(FLAGS_do_simulation){
+        FLAGS_datasource_type="rosbag";
+    }else{
+        FLAGS_datasource_type="rostopic";
+    }
+    
     FLAGS_vio_throttler_max_output_frequency_hz=10;
     FLAGS_swe_feature_tracking_detector_orb_pyramid_levels=8;
     FLAGS_feature_descriptor_type="freak";
@@ -92,145 +129,137 @@ void loadFlags(){
     FLAGS_rovio_update_filter_on_imu=false;
     FLAGS_lc_projection_matrix_filename=[[myBundle pathForResource:@"projection_matrix_freak" ofType:@"dat"] UTF8String];
     FLAGS_lc_projected_quantizer_filename=[[myBundle pathForResource:@"inverted_multi_index_quantizer_freak" ofType:@"dat"] UTF8String];
-    //FLAGS_num_hardware_threads=1;
-}
-
-@interface ViewController ()
-@end
-#define VERTEX_COUNT 4
-@implementation ViewController
-
-- (SCNGeometry*) fillPC: (std::unique_ptr<summary_map::LocalizationSummaryMap>& )localization_map{
-
-    const Eigen::Matrix3Xf& G_observer_positions =localization_map->GLandmarkPosition();
-    int size_byte=  G_observer_positions.cols()*G_observer_positions.rows()*4;
-    int vertex_count=G_observer_positions.cols();
-    NSData *data = [NSData dataWithBytes:G_observer_positions.data() length:size_byte];
-    SCNGeometrySource *vertexSource;
-    
-    vertexSource = [SCNGeometrySource geometrySourceWithData:data
-                                                    semantic:SCNGeometrySourceSemanticVertex
-                                                 vectorCount:vertex_count
-                                             floatComponents:YES
-                                         componentsPerVector:3
-                                           bytesPerComponent:4
-                                                  dataOffset:0
-                                                  dataStride:12];
-    
-    std::vector<int> indice;
-    for(int i=0; i<vertex_count; i++){
-        indice.push_back(i);
-    }
-    NSData *ind_data = [NSData dataWithBytes:indice.data() length:4*vertex_count];
-    SCNGeometryElement* vertexInd = [SCNGeometryElement geometryElementWithData:ind_data primitiveType:SCNGeometryPrimitiveTypePoint primitiveCount:vertex_count bytesPerIndex:4];
-    vertexInd.minimumPointScreenSpaceRadius = 1;
-    vertexInd.maximumPointScreenSpaceRadius=1;
-    NSMutableArray *vsourArrar = [[NSMutableArray alloc] init];
-    [vsourArrar addObject:vertexSource];
-    NSMutableArray *isourArrar = [[NSMutableArray alloc] init];
-    [isourArrar addObject:vertexInd];
-    SCNGeometry* pc_geo =[SCNGeometry geometryWithSources:vsourArrar elements:isourArrar];
-    return pc_geo;
+    FLAGS_use_map=true;
+    FLAGS_num_hardware_threads=0;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     loadFlags();
     flow.reset(message_flow::MessageFlow::create<message_flow::MessageDispatcherFifo>(common::getNumHardwareThreads()));
-    localization_map.reset(new summary_map::LocalizationSummaryMap);
-    if (!localization_map->loadFromFolder(FLAGS_vio_localization_map_folder)) {
-        NSLog(@"load map wrong!!");
+    algo =[[LocAlgo alloc] init];
+    if(!FLAGS_do_simulation){
+        [algo startAlgo:flow];
     }
-    
-    static constexpr char kSubscriberNodeName[] = "RenderingFlow";
+
+    if(FLAGS_use_map){
+        localization_map.reset(new summary_map::LocalizationSummaryMap);
+        if (!localization_map->loadFromFolder(FLAGS_vio_localization_map_folder)) {
+            NSLog(@"load map wrong!!");
+        }
+    }
     
     SCNScene *scene = [SCNScene scene];
+    worldNode=scene.rootNode;
 
-    // create and add a camera to the scene
-    SCNNode *cameraNode = [SCNNode node];
+    cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
     cameraNode.camera.usesOrthographicProjection=YES;
-    [scene.rootNode addChildNode:cameraNode];
+    cameraNode.camera.orthographicScale=20;
+    cameraNode.camera.automaticallyAdjustsZRange=YES;
+    [worldNode addChildNode:cameraNode];
+    cam_distence=500;
+    cameraNode.position = SCNVector3Make(0, 0, cam_distence);
 
-    // place the camera
-    cameraNode.position = SCNVector3Make(0, 0, 15);
-    [cameraNode lookAt:SCNVector3Make(0, 0, 0)];
-
-    SCNNode *pcNode = [SCNNode node];
-    pcNode.geometry=[self fillPC: localization_map];
-    if (pcNode.geometry== nullptr){
-        return;
+    if(FLAGS_use_map){
+        SCNNode *pcNode = [SCNNode node];
+        pcNode.geometry=[algo fillPC: localization_map];
+        if (pcNode.geometry== nullptr){
+            return;
+        }
+        [worldNode addChildNode:pcNode];
     }
-    [scene.rootNode addChildNode:pcNode];
-
+    
     meNode = [SCNNode node];
-    meNode.geometry = [SCNSphere sphereWithRadius:1];
-    [scene.rootNode addChildNode:meNode];
-    flow->registerSubscriber<message_flow_topics::VIO_UPDATES>(kSubscriberNodeName, message_flow::DeliveryOptions(), [self](const vio::VioUpdate::ConstPtr& vio_update){
-        my_posi=vio_update->vinode.get_T_M_I().getPosition();
-    });
-
+    meNode.geometry = [SCNPyramid pyramidWithWidth:1 height:2 length:1];
+    [worldNode addChildNode:meNode];
+    
+    SCNNode* girdNode = [SCNNode node];
+    girdNode.geometry = [algo buildGird];
+    [worldNode addChildNode:girdNode];
+    
     SCNView *scnView = (SCNView *)self.view;
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    UIRotationGestureRecognizer *rotGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRot:)];
+    UIPinchGestureRecognizer *pinGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePin:)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    NSMutableArray *gestureRecognizers = [NSMutableArray array];
+    [gestureRecognizers addObject:panGesture];
+    [gestureRecognizers addObject:rotGesture];
+    [gestureRecognizers addObject:pinGesture];
+    [gestureRecognizers addObject:tapGesture];
+    scnView.gestureRecognizers = gestureRecognizers;
+
+    static constexpr char kSubscriberNodeName[] = "RenderingFlow";
+    flow->registerSubscriber<message_flow_topics::VIO_UPDATES>(kSubscriberNodeName, message_flow::DeliveryOptions(), [self](const vio::VioUpdate::ConstPtr& vio_update){
+        loc_result=vio_update;
+        hasNewFrame=true;
+    });
+    
     scnView.scene = scene;
     scnView.allowsCameraControl = YES;
     scnView.showsStatistics = YES;
     scnView.backgroundColor = [UIColor blackColor];
-    // add a tap gesture recognizer
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    NSMutableArray *gestureRecognizers = [NSMutableArray array];
-    [gestureRecognizers addObject:tapGesture];
-    [gestureRecognizers addObjectsFromArray:scnView.gestureRecognizers];
-    scnView.gestureRecognizers = gestureRecognizers;
+    scnView.delegate = self;
+    scnView.playing=YES;
+    scnView.preferredFramesPerSecond=15;
     
-    aslam::NCamera::Ptr camera_system = aslam::NCamera::loadFromYaml(FLAGS_ncamera_calibration);
+    camera_system = aslam::NCamera::loadFromYaml(FLAGS_ncamera_calibration);
     vi_map::Imu::UniquePtr maplab_imu_sensor =vi_map::createFromYaml<vi_map::Imu>(FLAGS_imu_parameters_maplab);
     vi_map::ImuSigmas rovio_imu_sigmas;
     rovio_imu_sigmas.loadFromYaml(FLAGS_imu_parameters_rovio);
     loc_node.reset(new rovioli::RovioliNode(camera_system, std::move(maplab_imu_sensor), rovio_imu_sigmas,FLAGS_save_map_folder, localization_map.get(), flow.get()));
-    loc_node->start();
-    scnView.delegate = self;
-    scnView.playing=YES;
-    scnView.preferredFramesPerSecond=15;
+    if(FLAGS_do_simulation){
+        loc_node->start();
+    }
+
+    cam_pitch=90;
+    cam_yaw=0;
+    cam_roll=0;
+    cam_type=2;
+    cam_tar_x=0;
+    cam_tar_y=0;
+    cam_scale=cameraNode.camera.orthographicScale;
+    hasNewFrame=false;
+
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    detail_view = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+    detail_view.delegate = self;
 }
 
 - (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time{
-    meNode.position = SCNVector3Make(my_posi(0), my_posi(1), my_posi(2));
-}
-
-- (void) handleTap:(UIGestureRecognizer*)gestureRecognize
-{
-    // retrieve the SCNView
-    SCNView *scnView = (SCNView *)self.view;
     
-    // check what nodes are tapped
-    CGPoint p = [gestureRecognize locationInView:scnView];
-    NSArray *hitResults = [scnView hitTest:p options:nil];
+    cameraNode.eulerAngles = SCNVector3Make(0,0,cam_roll/180*PI);
+    cameraNode.camera.orthographicScale=cam_scale;
+    Eigen::Vector3d my_posi=Eigen::Vector3d::Zero();
+    Eigen::Quaterniond r_wc=Eigen::Quaterniond::Identity();
+    Eigen::Quaterniond r_wc1=Eigen::Quaterniond::Identity();
+    Eigen::Quaterniond r_wv=Eigen::Quaterniond::Identity();
+    if(loc_result){
+        Eigen::Quaterniond r_wi =loc_result->vinode.get_T_M_I().getEigenQuaternion();
+        Eigen::Vector3d local_h(0,0,2);
+        Eigen::Quaterniond r_ic = camera_system->get_T_C_B(0).inverse().getEigenQuaternion();
+        r_wc =r_wi*r_ic;
+        Eigen::Quaterniond r_cv = Eigen::Quaterniond(0, 0, -0.7071068, 0.7071068);
+        r_wv=r_wc*r_cv;
+        Eigen::Quaterniond r_cc1 = Eigen::Quaterniond(0, 1, 0, 0);
+        r_wc1=r_wc*r_cc1;
+        meNode.orientation=SCNVector4Make(r_wv.x(), r_wv.y(), r_wv.z(), r_wv.w());
+        my_posi =loc_result->vinode.get_T_M_I().getPosition()+r_wc*local_h;
+        meNode.position=SCNVector3Make(my_posi(0), my_posi(1), my_posi(2));
+        
+    }
     
-    // check that we clicked on at least one object
-    if([hitResults count] > 0){
-        // retrieved the first clicked object
-        SCNHitTestResult *result = [hitResults objectAtIndex:0];
-        
-        // get its material
-        SCNMaterial *material = result.node.geometry.firstMaterial;
-        
-        // highlight it
-        [SCNTransaction begin];
-        [SCNTransaction setAnimationDuration:0.5];
-        
-        // on completion - unhighlight
-        [SCNTransaction setCompletionBlock:^{
-            [SCNTransaction begin];
-            [SCNTransaction setAnimationDuration:0.5];
-            
-            material.emission.contents = [UIColor blackColor];
-            
-            [SCNTransaction commit];
-        }];
-        
-        material.emission.contents = [UIColor redColor];
-        
-        [SCNTransaction commit];
+    if(cam_type==2){
+        cameraNode.camera.usesOrthographicProjection=YES;
+        cameraNode.position=SCNVector3Make(cam_tar_x, cam_tar_y, cam_distence);
+    }else if(cam_type==1){
+        cameraNode.camera.usesOrthographicProjection=YES;
+        cameraNode.position=SCNVector3Make(my_posi(0), my_posi(1), cam_distence);
+    }else if(cam_type==0){
+        cameraNode.camera.usesOrthographicProjection=NO;
+        cameraNode.position=SCNVector3Make(my_posi(0), my_posi(1), my_posi(2));
+        cameraNode.orientation=SCNVector4Make(r_wc1.x(), r_wc1.y(), r_wc1.z(), r_wc1.w());
     }
 }
 
@@ -249,6 +278,63 @@ void loadFlags(){
         return UIInterfaceOrientationMaskAllButUpsideDown;
     } else {
         return UIInterfaceOrientationMaskAll;
+    }
+}
+
+- (void) handleTap:(UIGestureRecognizer*)gestureRecognize
+{
+    [self presentViewController:detail_view animated:NO completion:nil];
+}
+
+- (void) handlePan:(UIGestureRecognizer*)gestureRecognize
+{
+    SCNView *scnView = (SCNView *)self.view;
+    UIPanGestureRecognizer* reco = (UIPanGestureRecognizer*)gestureRecognize;
+    CGPoint p = [reco translationInView:scnView];
+    if(reco.numberOfTouches==2){
+    }else if(reco.numberOfTouches==1){
+        if(reco.state==1){
+            temp_cam_tar_x=p.x;
+            temp_cam_tar_y=p.y;
+        }else if(reco.state==2){
+            float rate=cam_scale/200;
+            float rot_x=(p.x-temp_cam_tar_x)*cos(-cam_roll/180*PI)-(p.y-temp_cam_tar_y)*sin(-cam_roll/180*PI);
+            float rot_y=(p.x-temp_cam_tar_x)*sin(-cam_roll/180*PI)+(p.y-temp_cam_tar_y)*cos(-cam_roll/180*PI);
+            cam_tar_x=cam_tar_x-rot_x*rate;
+            cam_tar_y=cam_tar_y+rot_y*rate;
+            temp_cam_tar_x=p.x;
+            temp_cam_tar_y=p.y;
+        }
+    }
+}
+
+- (void) handleRot:(UIGestureRecognizer*)gestureRecognize
+{
+    SCNView *scnView = (SCNView *)self.view;
+    UIRotationGestureRecognizer* reco = (UIRotationGestureRecognizer*)gestureRecognize;
+    if(reco.state==1){
+        temp_cam_roll=reco.rotation;
+    }else if(reco.state==2){
+        cam_roll=cam_roll+(reco.rotation-temp_cam_roll)*180/PI;
+        if(cam_yaw>360){
+            cam_roll=cam_roll-360;
+        }
+        if(cam_yaw<0){
+            cam_roll=cam_roll+360;
+        }
+        temp_cam_roll=reco.rotation;
+    }
+}
+
+- (void) handlePin:(UIGestureRecognizer*)gestureRecognize
+{
+    SCNView *scnView = (SCNView *)self.view;
+    UIPinchGestureRecognizer* reco = (UIPinchGestureRecognizer*)gestureRecognize;
+    if(reco.state==1){
+        temp_scale=reco.scale;
+    }else if(reco.state==2){
+        cam_scale=cam_scale*(temp_scale/reco.scale);
+        temp_scale=reco.scale;
     }
 }
 

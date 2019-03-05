@@ -204,7 +204,7 @@ void RovioFlow::processRovioUpdate(const rovio::RovioState& state) {
     ensurePositiveQuaternion(&T_G_M.getRotation());
     rovio_estimate->T_G_M = T_G_M;
   }
-  
+
   rovio_estimate->debug_img=state.getDebugImg();
   publish_rovio_estimates_(rovio_estimate);
 }

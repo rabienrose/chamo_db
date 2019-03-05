@@ -34,7 +34,6 @@ namespace rovioli {
                 return new DataSourceRosbag(FLAGS_datasource_rosbag, topic_settings);
                 break;
             default:
-                LOG(FATAL);
                 break;
         }
         return nullptr;

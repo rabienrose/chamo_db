@@ -161,6 +161,8 @@ namespace rovioli {
             last_localization_state_ = vio::LocalizationState::kUninitialized;
         }
         
+        vio_update->debug_img=(*it_rovio_estimate_before_nframe)->debug_img;
+        
         // Publish VIO update.
         CHECK(vio_update_publish_function_);
         vio_update_publish_function_(vio_update);

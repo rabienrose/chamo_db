@@ -229,10 +229,14 @@
 		041223D321BAC4210083D7AF /* sensor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CA21BAC4210083D7AF /* sensor.cc */; };
 		041223D421BAC4210083D7AF /* relative-6dof-pose.cc in Sources */ = {isa = PBXBuildFile; fileRef = 041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */; };
 		04213EC421B2A1C9004B4F53 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04213EC321B2A1C9004B4F53 /* CoreLocation.framework */; };
+		0448173321C4094C00B378D4 /* try_mm.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0448173121C4094B00B378D4 /* try_mm.mm */; };
 		0499C32321C0EBBC009C2A4C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32221C0EBBB009C2A4C /* art.scnassets */; };
 		0499C32521C0ED80009C2A4C /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0499C32421C0ED80009C2A4C /* SceneKit.framework */; };
 		0499C32721C10ADC009C2A4C /* localization_summary_map in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32621C10ADC009C2A4C /* localization_summary_map */; };
 		0499C32921C15446009C2A4C /* data.bag in Resources */ = {isa = PBXBuildFile; fileRef = 0499C32821C15446009C2A4C /* data.bag */; };
+		0499C32C21C238A5009C2A4C /* DetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0499C32B21C238A5009C2A4C /* DetailViewController.mm */; };
+		0499C32F21C250A4009C2A4C /* LocAlgo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0499C32E21C250A3009C2A4C /* LocAlgo.mm */; };
+		049F321D21C614CE00A87327 /* ncamera_ios.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 049F321C21C614CD00A87327 /* ncamera_ios.yaml */; };
 		04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */; };
 		04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */; };
 		04F5A45821BD6FBF00FE2A7B /* imu.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 04F5A45121BD6FBE00FE2A7B /* imu.yaml */; };
@@ -899,10 +903,17 @@
 		041223CB21BAC4210083D7AF /* relative-6dof-pose.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "relative-6dof-pose.cc"; sourceTree = "<group>"; };
 		04213EC321B2A1C9004B4F53 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04408C1421B2BF25003C5344 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0448173121C4094B00B378D4 /* try_mm.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = try_mm.mm; sourceTree = "<group>"; };
+		0448173221C4094C00B378D4 /* common_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_header.h; sourceTree = "<group>"; };
 		0499C32221C0EBBB009C2A4C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0499C32421C0ED80009C2A4C /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		0499C32621C10ADC009C2A4C /* localization_summary_map */ = {isa = PBXFileReference; lastKnownFileType = file; path = localization_summary_map; sourceTree = "<group>"; };
 		0499C32821C15446009C2A4C /* data.bag */ = {isa = PBXFileReference; lastKnownFileType = file; path = data.bag; sourceTree = "<group>"; };
+		0499C32A21C238A4009C2A4C /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		0499C32B21C238A5009C2A4C /* DetailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DetailViewController.mm; sourceTree = "<group>"; };
+		0499C32D21C250A3009C2A4C /* LocAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocAlgo.h; sourceTree = "<group>"; };
+		0499C32E21C250A3009C2A4C /* LocAlgo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocAlgo.mm; sourceTree = "<group>"; };
+		049F321C21C614CD00A87327 /* ncamera_ios.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ncamera_ios.yaml; sourceTree = "<group>"; };
 		04F5A44F21BD6FBE00FE2A7B /* ios_test_tiny.bag */ = {isa = PBXFileReference; lastKnownFileType = file; path = ios_test_tiny.bag; sourceTree = "<group>"; };
 		04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "imu-sigmas.yaml"; sourceTree = "<group>"; };
 		04F5A45121BD6FBE00FE2A7B /* imu.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imu.yaml; sourceTree = "<group>"; };
@@ -2163,6 +2174,7 @@
 		04121C9821BA39940083D7AF /* config */ = {
 			isa = PBXGroup;
 			children = (
+				049F321C21C614CD00A87327 /* ncamera_ios.yaml */,
 				0499C32821C15446009C2A4C /* data.bag */,
 				0499C32621C10ADC009C2A4C /* localization_summary_map */,
 				04F5A45021BD6FBE00FE2A7B /* imu-sigmas.yaml */,
@@ -2885,6 +2897,12 @@
 		CE00FB85205D6E7B00682E6F /* map_viewer */ = {
 			isa = PBXGroup;
 			children = (
+				0448173221C4094C00B378D4 /* common_header.h */,
+				0448173121C4094B00B378D4 /* try_mm.mm */,
+				0499C32D21C250A3009C2A4C /* LocAlgo.h */,
+				0499C32E21C250A3009C2A4C /* LocAlgo.mm */,
+				0499C32A21C238A4009C2A4C /* DetailViewController.h */,
+				0499C32B21C238A5009C2A4C /* DetailViewController.mm */,
 				0499C32221C0EBBB009C2A4C /* art.scnassets */,
 				040FEA7321BD1986000FADB9 /* pb.cc */,
 				0400E12B21BBD017001AAC7E /* rovioli */,
@@ -3022,6 +3040,7 @@
 				04F5A45B21BD6FBF00FE2A7B /* rovio_default_config.info in Resources */,
 				04F5A45921BD6FBF00FE2A7B /* ncamera.yaml in Resources */,
 				04F5A45621BD6FBF00FE2A7B /* ios_test_tiny.bag in Resources */,
+				049F321D21C614CE00A87327 /* ncamera_ios.yaml in Resources */,
 				04F5A45721BD6FBF00FE2A7B /* imu-sigmas.yaml in Resources */,
 				CE00FB91205D6E7B00682E6F /* Main.storyboard in Resources */,
 				0499C32721C10ADC009C2A4C /* localization_summary_map in Resources */,
@@ -3046,6 +3065,7 @@
 				0400E18F21BBD018001AAC7E /* map-builder-flow.cc in Sources */,
 				040FE76221BCF0EE000FADB9 /* FeatureCoordinates.cpp in Sources */,
 				04121FBB21BA72E70083D7AF /* cubic-spline.cc in Sources */,
+				0499C32C21C238A5009C2A4C /* DetailViewController.mm in Sources */,
 				040FEAAE21BD1986000FADB9 /* vi_map.pb.cc in Sources */,
 				040FEA9F21BD1986000FADB9 /* projected_image.pb.cc in Sources */,
 				040FEAA621BD1986000FADB9 /* eigen.pb.cc in Sources */,
@@ -3159,6 +3179,7 @@
 				0400DF4F21BBBC9D001AAC7E /* sampler-base.cc in Sources */,
 				04121EA621BA3BC50083D7AF /* hash-id.cc in Sources */,
 				04121DF021BA3B6D0083D7AF /* camera-factory.cc in Sources */,
+				0448173321C4094C00B378D4 /* try_mm.mm in Sources */,
 				04121DE821BA3B6D0083D7AF /* ncamera-yaml-serialization.cc in Sources */,
 				0400DE9A21BBB93B001AAC7E /* flags.cc in Sources */,
 				0400DEE021BBBA41001AAC7E /* vocabulary-tree-maker.cc in Sources */,
@@ -3209,6 +3230,7 @@
 				0400DCB921BB861E001AAC7E /* vio-update-serialization.cc in Sources */,
 				04121FC221BA72E70083D7AF /* proto-serialization-helper.cc in Sources */,
 				0400E19721BBD018001AAC7E /* datasource-factory.cc in Sources */,
+				0499C32F21C250A4009C2A4C /* LocAlgo.mm in Sources */,
 				0400DF4921BBBC9D001AAC7E /* landmark-sparsifier-base.cc in Sources */,
 				04121DE921BA3B6D0083D7AF /* camera.cc in Sources */,
 				0400E0BC21BBC811001AAC7E /* near-camera-pose-sampling.cc in Sources */,
